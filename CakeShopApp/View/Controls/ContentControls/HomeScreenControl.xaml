@@ -20,6 +20,7 @@
             <conv:IntegerToVisibilityConverter x:Key="ReversedIntegerToVisibilityConverter" IsReversed="True" />
             <conv:BackgroundColorForCategoryConverter x:Key="BackgroundColorForCategoryConverter" />
             <conv:ForegroundColorForCategoryConverter x:Key="ForegroundColorForCategoryConverter" />
+            <conv:TypeToBackground x:Key="TypeToBackgroundConverter"/>
             <conv:ImageConverter x:Key="ImageConverter" />
 
             <ResourceDictionary.MergedDictionaries>
@@ -80,15 +81,20 @@
                                 Height="100"
                                 Margin="5,0"
                                 md:ShadowAssist.ShadowDepth="Depth0"
-                                Background="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"
                                 BorderThickness="0"
                                 UniformCornerRadius="25">
-                                <TextBlock
+                                <Grid>
+                                    <Image Source="{Binding Key.TYPE_ID, Converter={StaticResource TypeToBackgroundConverter}}"
+                                           Stretch="UniformToFill"/>
+                                    <!--Background="{Binding _image, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"-->
+
+                                    <TextBlock
                                     Margin="15,0,0,0"
                                     VerticalAlignment="Center"
-                                    FontSize="16"
+                                    FontSize="25"
                                     Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
                                     Text="{Binding Key.TYPE_NAME}" />
+                                </Grid>
                             </md:Card>
                         </DataTemplate>
                     </ListView.ItemTemplate>
