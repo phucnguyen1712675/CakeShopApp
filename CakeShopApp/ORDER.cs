@@ -11,24 +11,24 @@ namespace CakeShopApp
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using PropertyChanged;
-
-    [AddINotifyPropertyChangedInterface]
+    
     public partial class ORDER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ORDER()
         {
-            this.CAKE_IN_ORDERS = new ObservableCollection<CAKE_IN_ORDERS>();
+            this.CAKE_IN_ORDERS = new HashSet<CAKE_IN_ORDERS>();
         }
     
         public int ORDERS_ID { get; set; }
         public Nullable<System.DateTime> DATE_CREATE { get; set; }
         public Nullable<int> CAKE_LIST { get; set; }
+        public string CUSTOMER_NAME { get; set; }
+        public string CUSTOMER_PHONE { get; set; }
+        public string CUSTOMER_ADDRESS { get; set; }
         public Nullable<double> TOTAL_PRICE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<CAKE_IN_ORDERS> CAKE_IN_ORDERS { get; set; }
+        public virtual ICollection<CAKE_IN_ORDERS> CAKE_IN_ORDERS { get; set; }
     }
 }

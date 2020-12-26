@@ -112,13 +112,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CAKE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CAKESTOREMODEL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CAKESTOREMODEL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CAKESTOREMODEL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CAKESTOREMODEL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
     </Compile>
     <Compile Include="CAKE_IN_ORDERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="CAKE_TYPE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleToVNDConverter.cs" />
     <Compile Include="Converters\ForegroundColorForCategoryConverter.cs" />
@@ -142,7 +157,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="ORDER.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\AnotherCommandImplementation.cs" />
     <Compile Include="Utils\CommandHandler.cs" />
@@ -248,6 +263,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="CAKESTOREMODEL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CAKESTOREMODEL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CAKESTOREMODEL.edmx.diagram">
+      <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
+    </None>
     <None Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
@@ -268,6 +290,16 @@
     <Resource Include="Resources\Images\donut-4874741.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CAKESTOREMODEL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
+      <LastGenOutput>CAKESTOREMODEL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CAKESTOREMODEL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
+      <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
+    </Content>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
