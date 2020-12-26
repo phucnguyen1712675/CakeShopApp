@@ -143,21 +143,6 @@
     <Compile Include="Converters\BackgroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ORDER.cs">
       <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
@@ -169,7 +154,6 @@
     <Compile Include="ViewModel\Controls\ContentControls\CreateOrderScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\DetailViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\HomeScreenViewModel.cs" />
-    <Compile Include="ViewModel\Controls\ContentControls\SettingViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
@@ -189,9 +173,6 @@
     </Compile>
     <Compile Include="View\Controls\ContentControls\HomeScreenControl.xaml.cs">
       <DependentUpon>HomeScreenControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Controls\ContentControls\SettingControl.xaml.cs">
-      <DependentUpon>SettingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\ContentControls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
@@ -219,10 +200,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\ContentControls\HomeScreenControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Controls\ContentControls\SettingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,19 +246,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="CAKESTOREMODEL.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CAKESTOREMODEL.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="CAKESTOREMODEL.edmx.diagram">
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
-    </None>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -309,16 +279,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Resource Include="Resources\Icons\cheesecake.ico" />
   </ItemGroup>

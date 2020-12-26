@@ -34,32 +34,48 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <!--<Border
-                Height="400"
-                BorderThickness="0"
-                CornerRadius="200">
-                <Border.Background>
-                    <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                </Border.Background>
-            </Border>-->
             <Border
                 Height="400"
                 Margin="300,0,0,0"
                 BorderThickness="0"
                 CornerRadius="200">
                 <Border.Background>
-                    <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                    <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                 </Border.Background>
             </Border>
-            <Grid Grid.Column="1" Margin="100,200,0,200">
+            <Grid Grid.Column="1" Margin="100,200,0,180">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Text="{Binding SelectedCake.CAKE_NAME}" />
-                <Grid Grid.Row="1" Margin="0,20">
+                <Viewbox
+                    HorizontalAlignment="Left"
+                    Stretch="Uniform"
+                    StretchDirection="DownOnly">
+                    <TextBlock
+                        Width="800"
+                        Style="{StaticResource MaterialDesignHeadline2TextBlock}"
+                        Text="{Binding SelectedCake.CAKE_NAME}"
+                        TextAlignment="Justify"
+                        TextWrapping="WrapWithOverflow" />
+                </Viewbox>
+                <Viewbox
+                    Grid.Row="1"
+                    Margin="5,5"
+                    HorizontalAlignment="Left"
+                    Stretch="Uniform"
+                    StretchDirection="DownOnly">
+                    <TextBlock
+                        Width="500"
+                        Style="{StaticResource MaterialDesignBody1TextBlock}"
+                        Text="{Binding SelectedCake.DESCRIPTION}"
+                        TextAlignment="Justify"
+                        TextWrapping="WrapWithOverflow" />
+                </Viewbox>
+                <Grid Grid.Row="2" Margin="0,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
@@ -75,7 +91,7 @@
                         Grid.Column="0"
                         Margin="5,10,10,10"
                         Foreground="#FF9E9E9E"
-                        Text="Loại bánh" />
+                        Text="Loại" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
@@ -91,21 +107,21 @@
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
-                        Margin="5,10,10,10"
+                        Margin="10"
                         Text="{Binding SelectedCake.CAKE_TYPE1.TYPE_NAME}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
-                        Margin="5,10,10,10"
+                        Margin="10"
                         Text="{Binding SelectedCake.PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="1"
-                        Margin="5,10,10,10"
+                        Margin="10"
                         Text="{Binding SelectedCake.REMAINING_AMOUNT}" />
                 </Grid>
                 <Button
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Width="150"
                     Height="50"
                     HorizontalAlignment="Left"

@@ -16,6 +16,7 @@
         <ResourceDictionary>
             <conv:DoubleToVNDConverter x:Key="DoubleToVNDConverter" />
             <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+            <conv:StringToVisibilityConverter x:Key="ReversedStringToVisibilityConverter" IsReversed="True" />
             <conv:ImageConverter x:Key="ImageConverter" />
 
             <ResourceDictionary.MergedDictionaries>
@@ -47,23 +48,24 @@
                             Margin="0,15,0,5"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-                            <!--<Border
-                            Width="128"
-                            Height="128"
-                            BorderThickness="0"
-                            CornerRadius="90"
-                            Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource StringToVisibilityConverter}}">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                            </Border.Background>
-                        </Border>-->
                             <Border
                                 Width="128"
                                 Height="128"
                                 BorderThickness="0"
-                                CornerRadius="90">
+                                CornerRadius="90"
+                                Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource ReversedStringToVisibilityConverter}}">
                                 <Border.Background>
                                     <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                            <Border
+                                Width="128"
+                                Height="128"
+                                BorderThickness="0"
+                                CornerRadius="90"
+                                Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource StringToVisibilityConverter}}">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                                 </Border.Background>
                             </Border>
                         </Grid>

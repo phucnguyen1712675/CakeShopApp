@@ -11,6 +11,7 @@ namespace CakeShopApp.Converters
 {
     public class StringToVisibilityConverter : IValueConverter
     {
+        public bool IsReversed { get; set; }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == DependencyProperty.UnsetValue)
@@ -19,7 +20,7 @@ namespace CakeShopApp.Converters
             }
 
             string str = (string)value;
-            var result = string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible;
+            var result = !IsReversed ? string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible : string.IsNullOrEmpty(str) ? Visibility.Visible : Visibility.Collapsed;
             return result;
         }
 

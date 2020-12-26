@@ -159,20 +159,12 @@
                                     </Grid.RowDefinitions>
 
                                     <Grid>
-                                        <!--<Border
-                                            Margin="0,0,0,10"
-                                            BorderThickness="0"
-                                            CornerRadius="25">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                                            </Border.Background>
-                                        </Border>-->
                                         <Border
                                             Margin="0,0,0,10"
                                             BorderThickness="0"
                                             CornerRadius="25">
                                             <Border.Background>
-                                                <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                                                <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                                             </Border.Background>
                                         </Border>
                                         <md:Card
