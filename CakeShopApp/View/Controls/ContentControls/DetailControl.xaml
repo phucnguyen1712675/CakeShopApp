@@ -1,0 +1,151 @@
+﻿<UserControl
+    x:Class="CakeShopApp.View.Controls.ContentControls.DetailControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:CakeShopApp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CakeShopApp.View.Controls.ContentControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    d:DesignHeight="700"
+    d:DesignWidth="1300"
+    Background="{DynamicResource MaterialDesignPaper}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:DoubleToVNDConverter x:Key="DoubleToVNDConverter" />
+            <conv:ImageConverter x:Key="ImageConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <!--  throw in some extra colour for our floating action button  -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Margin="300,0,250,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!--<Border
+                Height="400"
+                BorderThickness="0"
+                CornerRadius="200">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>-->
+            <Border
+                Height="400"
+                BorderThickness="0"
+                CornerRadius="200">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+            <Grid Grid.Column="1" Margin="100,200,0,200">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Text="{Binding SelectedCake.CAKE_NAME}" />
+                <Grid Grid.Row="1" Margin="0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="5,10,10,10"
+                        Foreground="#FF9E9E9E"
+                        Text="Loại bánh" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5,10,10,10"
+                        Foreground="#FF9E9E9E"
+                        Text="Giá" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5,10,10,10"
+                        Foreground="#FF9E9E9E"
+                        Text="Số lượng còn lại" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,10,10,10"
+                        Text="{Binding SelectedCake.CAKE_TYPE1.TYPE_NAME}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5,10,10,10"
+                        Text="{Binding SelectedCake.PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5,10,10,10"
+                        Text="{Binding SelectedCake.REMAINING_AMOUNT}" />
+                </Grid>
+                <Button
+                    Grid.Row="2"
+                    Width="150"
+                    Height="50"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    md:ButtonAssist.CornerRadius="25"
+                    Content="Chỉnh sửa"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    ToolTip="Chỉnh sửa" />
+            </Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left">
+            <Border Width="100" Background="{DynamicResource PrimaryHueDarkBrush}" />
+            <Button
+                Command="{Binding BackHomeCommand}"
+                Content="{md:PackIcon Kind=Home,
+                                      Size=50}"
+                Foreground="{DynamicResource MaterialDesignBackground}"
+                Style="{StaticResource MaterialDesignIconForegroundButton}"
+                ToolTip="Back to home screen" />
+        </Grid>
+        <md:PopupBox
+            Margin="32"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}">
+            <StackPanel>
+                <Button
+                    Background="{DynamicResource PrimaryHueMidBrush}"
+                    Command="{Binding RunAddCateCommand}"
+                    Content="{md:PackIcon Kind=Cake,
+                                          Size=20}"
+                    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                    ToolTip="Thêm loại bánh mới" />
+                <Button
+                    Background="{DynamicResource SecondaryHueMidBrush}"
+                    Command="{Binding RunAddCakeCommand}"
+                    Content="{md:PackIcon Kind=Cupcake,
+                                          Size=20}"
+                    Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
+                    ToolTip="Thêm bánh mới" />
+            </StackPanel>
+        </md:PopupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,83 @@
+﻿<mde:MaterialWindow
+    x:Class="CakeShopApp.View.SplashScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CakeShopApp.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:vm="clr-namespace:CakeShopApp.ViewModel"
+    Title="Splash Screen"
+    Width="800"
+    Height="500"
+    AllowsTransparency="True"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{md:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="Wheat"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <mde:MaterialWindow.DataContext>
+        <vm:SplashScreenViewModel />
+    </mde:MaterialWindow.DataContext>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Images/miti.jpg" Stretch="UniformToFill" />
+        </Grid.Background>
+
+        <Grid Margin="100,100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Margin="0,20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                Text="CAKE SHOP" />
+            <Viewbox
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Stretch="Uniform"
+                StretchDirection="DownOnly">
+                <TextBlock
+                    Width="300"
+                    Text="{Binding RandomFact}"
+                    TextAlignment="Justify"
+                    TextWrapping="WrapWithOverflow" />
+            </Viewbox>
+            <CheckBox
+                Grid.Row="2"
+                Width="300"
+                Command="{Binding CheckCommand}"
+                Content="Don't show again"
+                IsChecked="{Binding IsChecked}"
+                Style="{StaticResource MaterialDesignCheckBox}">
+                <CheckBox.Resources>
+                    <!--  Unchecked state  -->
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="Wheat" />
+                    <!--  Checked state  -->
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="MintCream" />
+                </CheckBox.Resources>
+            </CheckBox>
+            <ProgressBar
+                Grid.Row="3"
+                Width="40"
+                Height="40"
+                Foreground="Wheat"
+                IsIndeterminate="True"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Value="0" />
+        </Grid>
+    </Grid>
+</mde:MaterialWindow>
