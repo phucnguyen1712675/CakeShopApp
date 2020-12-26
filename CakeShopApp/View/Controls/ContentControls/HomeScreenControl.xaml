@@ -21,6 +21,7 @@
             <conv:BackgroundColorForCategoryConverter x:Key="BackgroundColorForCategoryConverter" />
             <conv:ForegroundColorForCategoryConverter x:Key="ForegroundColorForCategoryConverter" />
             <conv:ImageConverter x:Key="ImageConverter" />
+            <conv:ForegroundButtonCategoryConverter x:Key="ForegroundButtonCategoryConverter" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -57,11 +58,11 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     SelectedIndex="{Binding SelectedIndex}">
-                    <i:Interaction.Triggers>
+                    <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding SelectedCategoryCommand}" CommandParameter="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem}" />
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    </i:Interaction.Triggers>-->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -83,12 +84,24 @@
                                 Background="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"
                                 BorderThickness="0"
                                 UniformCornerRadius="25">
-                                <TextBlock
-                                    Margin="15,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
-                                    Text="{Binding Key.TYPE_NAME}" />
+                                <Grid>
+                                    <TextBlock
+                                        Margin="15,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
+                                        Text="{Binding Key.TYPE_NAME}" />
+                                    <Button
+                                        Margin="0,0,5,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding DataContext.EditCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding Key}"
+                                        Content="{md:PackIcon Kind=Edit}"
+                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundButtonCategoryConverter}}"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="Edit" />
+                                </Grid>
                             </md:Card>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -103,7 +116,7 @@
                 <TextBlock
                     Margin="5,0"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Danh mục" />
+                    Text="Thực đơn" />
                 <ListView
                     x:Name="cakesListView"
                     Grid.Row="1"

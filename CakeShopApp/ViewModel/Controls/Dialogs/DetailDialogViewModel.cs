@@ -12,13 +12,41 @@ namespace CakeShopApp.ViewModel.Controls.Dialogs
 {
     public class DetailDialogViewModel : BaseViewModel
     {
-        public CAKE SelectedCake { get; set; }
+        private CAKE _selectedCake;
+        public CAKE SelectedCake
+        {
+            get => this._selectedCake;
+            set
+            {
+                this._selectedCake = value;
+
+                if (this._selectedCake.CAKE_ID == 0)
+                {
+                    using (var db = new CAKESTOREEntities())
+                    {
+                        var maxIdCake = db.CAKEs.OrderByDescending(cake => cake.CAKE_ID).FirstOrDefault();
+                        this.SelectedCake.CAKE_ID = maxIdCake.CAKE_ID + 1;
+                    }
+                }
+
+                //Check if item exists
+                if (CakeCategories.Any(f => f.TYPE_ID == this._selectedCake.CAKE_TYPE))
+                {
+                    //If it does, get item
+                    var cate = CakeCategories.First(f => f.TYPE_ID == this._selectedCake.CAKE_TYPE);
+                    //grab its index
+                    SelectedIndex = CakeCategories.IndexOf(cate);
+                }
+            }
+        }
         public ObservableCollection<CAKE_TYPE> CakeCategories { get; set; }
         public int SelectedIndex { get; set; }
         public ICommand SelectImageCommand => new AnotherCommandImplementation(ExecuteOpenFileDialog);
 
         public DetailDialogViewModel()
         {
+            CakeCategories = new ObservableCollection<CAKE_TYPE>();
+
             using (var db = new CAKESTOREEntities())
             {
                 db.CAKE_TYPE.ToList().ForEach(cate =>
@@ -26,7 +54,6 @@ namespace CakeShopApp.ViewModel.Controls.Dialogs
                     CakeCategories.Add(cate);
                 });
             };
-            this.SelectedIndex = CakeCategories.IndexOf(this.SelectedCake.CAKE_TYPE1);
         }
 
         private void ExecuteOpenFileDialog(object obj)
