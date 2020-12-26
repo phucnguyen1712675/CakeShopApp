@@ -28,9 +28,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid Margin="300,0,250,0">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="700" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -44,6 +44,7 @@
             </Border>-->
             <Border
                 Height="400"
+                Margin="300,0,0,0"
                 BorderThickness="0"
                 CornerRadius="200">
                 <Border.Background>
@@ -110,6 +111,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     md:ButtonAssist.CornerRadius="25"
+                    Command="{Binding RunEditCakeCommand}"
                     Content="Chỉnh sửa"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     ToolTip="Chỉnh sửa" />

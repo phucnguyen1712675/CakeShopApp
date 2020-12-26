@@ -136,11 +136,13 @@
       <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleToVNDConverter.cs" />
+    <Compile Include="Converters\ForegroundButtonCategoryConverter.cs" />
     <Compile Include="Converters\ForegroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\BackgroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,6 +164,7 @@
     <Compile Include="Utils\AnotherCommandImplementation.cs" />
     <Compile Include="Utils\CommandHandler.cs" />
     <Compile Include="Utils\MyRandom.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\CreateOrderScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\DetailViewModel.cs" />
@@ -193,6 +196,9 @@
     <Compile Include="View\Controls\ContentControls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controls\Dialogs\SampleMessageDialog.xaml.cs">
+      <DependentUpon>SampleMessageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -221,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\ContentControls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Dialogs\SampleMessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
