@@ -11,8 +11,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 namespace CakeShopApp.ViewModel.Controls.ContentControls
 {
     public class HomeScreenViewModel : BaseViewModel
@@ -29,12 +31,14 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         public ICommand RunAddCateCommand => new AnotherCommandImplementation(ExecuteAddCateDialog);
         public ICommand RunAddCakeCommand => new AnotherCommandImplementation(ExecuteAddCakeDialog);
 
+         
+
         public HomeScreenViewModel()
         {
             this.SelectedIndex = 0;
 
             CakeCategories = new Dictionary<CAKE_TYPE, ObservableCollection<CAKE>>();
-
+            
             using (var db = new CAKESTOREEntities())
             {
                 db.CAKE_TYPE.ToList().ForEach(cat =>
