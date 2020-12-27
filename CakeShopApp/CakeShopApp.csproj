@@ -136,23 +136,24 @@
       <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleToVNDConverter.cs" />
+    <Compile Include="Converters\ForegroundButtonCategoryConverter.cs" />
     <Compile Include="Converters\ForegroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\BackgroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
-    <Compile Include="Converters\TypeToBackground.cs" />
+    <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="ORDER.cs">
       <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\AnotherCommandImplementation.cs" />
     <Compile Include="Utils\CommandHandler.cs" />
     <Compile Include="Utils\MyRandom.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\CreateOrderScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\DetailViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\HomeScreenViewModel.cs" />
-    <Compile Include="ViewModel\Controls\ContentControls\SettingViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
@@ -173,11 +174,11 @@
     <Compile Include="View\Controls\ContentControls\HomeScreenControl.xaml.cs">
       <DependentUpon>HomeScreenControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\ContentControls\SettingControl.xaml.cs">
-      <DependentUpon>SettingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Controls\ContentControls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\Dialogs\SampleMessageDialog.xaml.cs">
+      <DependentUpon>SampleMessageDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
@@ -202,11 +203,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\ContentControls\SettingControl.xaml">
+    <Page Include="View\Controls\ContentControls\StatisticsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controls\ContentControls\StatisticsControl.xaml">
+    <Page Include="View\Controls\Dialogs\SampleMessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -279,16 +280,6 @@
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Images\10.jpg" />
-    <Resource Include="Resources\Images\8.jpg" />
-    <Resource Include="Resources\Images\9.jpg" />
-    <Resource Include="Resources\Images\7.jpg" />
-    <Resource Include="Resources\Images\6.jpg" />
-    <Resource Include="Resources\Images\5.jpg" />
-    <Resource Include="Resources\Images\3.jpg" />
-    <Resource Include="Resources\Images\4.jpg" />
-    <Resource Include="Resources\Images\2.jpg" />
-    <Resource Include="Resources\Images\1.jpg" />
     <Resource Include="Resources\Icons\cheesecake.ico" />
   </ItemGroup>
   <ItemGroup>

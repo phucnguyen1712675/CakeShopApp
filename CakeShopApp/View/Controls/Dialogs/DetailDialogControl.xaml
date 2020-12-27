@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="clr-namespace:CakeShopApp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:domain="clr-namespace:CakeShopApp.Domain"
     xmlns:local="clr-namespace:CakeShopApp.View.Controls.ContentControls.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -15,6 +16,7 @@
         <ResourceDictionary>
             <conv:DoubleToVNDConverter x:Key="DoubleToVNDConverter" />
             <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+            <conv:StringToVisibilityConverter x:Key="ReversedStringToVisibilityConverter" IsReversed="True" />
             <conv:ImageConverter x:Key="ImageConverter" />
 
             <ResourceDictionary.MergedDictionaries>
@@ -35,43 +37,50 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="180" />
+                <RowDefinition Height="200" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <md:ColorZone VerticalAlignment="Stretch" Mode="PrimaryDark">
-                <StackPanel>
-                    <Grid
-                        Margin="0,15,0,5"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                        <!--<Border
-                            Width="128"
-                            Height="128"
-                            BorderThickness="0"
-                            CornerRadius="90"
-                            Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource StringToVisibilityConverter}}">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                            </Border.Background>
-                        </Border>-->
-                        <Border
-                            Width="128"
-                            Height="128"
-                            BorderThickness="0"
-                            CornerRadius="90">
-                            <Border.Background>
-                                <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
-                            </Border.Background>
-                        </Border>
-                    </Grid>
-                    <Button
-                        HorizontalAlignment="Center"
-                        Command="{Binding SelectImageCommand}"
-                        Content="Chọn ảnh"
-                        Style="{StaticResource MaterialDesignFlatButton}" />
-                </StackPanel>
-            </md:ColorZone>
+            <Grid>
+                <md:ColorZone VerticalAlignment="Stretch" Mode="PrimaryDark">
+                    <StackPanel>
+                        <Grid
+                            Margin="0,15,0,5"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Border
+                                Width="128"
+                                Height="128"
+                                BorderThickness="0"
+                                CornerRadius="90"
+                                Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource ReversedStringToVisibilityConverter}}">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                            <Border
+                                Width="128"
+                                Height="128"
+                                BorderThickness="0"
+                                CornerRadius="90"
+                                Visibility="{Binding SelectedCake.IMAGE, Converter={StaticResource StringToVisibilityConverter}}">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </md:ColorZone>
+                <Button
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding SelectImageCommand}"
+                    Content="Chọn ảnh"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}" />
+            </Grid>
+
+
             <Grid Grid.Row="1" Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -91,11 +100,18 @@
                     Grid.Row="1"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Name"
-                    md:HintAssist.IsFloating="True"
-                    Text="{Binding SelectedCake.CAKE_NAME}" />
+                    md:HintAssist.IsFloating="True">
+                    <TextBox.Text>
+                        <Binding Path="SelectedCake.CAKE_NAME" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <ComboBox
                     Grid.Row="2"
-                    Margin="0,5"
+                    Margin="0,12,0,0"
                     md:HintAssist.Hint="Category"
                     ItemsSource="{Binding CakeCategories}"
                     SelectedIndex="{Binding SelectedIndex}"
@@ -115,14 +131,31 @@
                     Grid.Row="3"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Price"
-                    md:HintAssist.IsFloating="True"
-                    Text="{Binding SelectedCake.PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
+                    md:HintAssist.IsFloating="True">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DoubleToVNDConverter}"
+                            Path="SelectedCake.PRICE"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <TextBox
                     Grid.Row="4"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Remaining amount"
-                    md:HintAssist.IsFloating="True"
-                    Text="{Binding SelectedCake.REMAINING_AMOUNT}" />
+                    md:HintAssist.IsFloating="True">
+                    <TextBox.Text>
+                        <Binding Path="SelectedCake.REMAINING_AMOUNT" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </Grid>
         </Grid>
         <StackPanel

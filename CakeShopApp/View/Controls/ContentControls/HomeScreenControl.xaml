@@ -20,8 +20,8 @@
             <conv:IntegerToVisibilityConverter x:Key="ReversedIntegerToVisibilityConverter" IsReversed="True" />
             <conv:BackgroundColorForCategoryConverter x:Key="BackgroundColorForCategoryConverter" />
             <conv:ForegroundColorForCategoryConverter x:Key="ForegroundColorForCategoryConverter" />
-            <conv:TypeToBackground x:Key="TypeToBackgroundConverter"/>
             <conv:ImageConverter x:Key="ImageConverter" />
+            <conv:ForegroundButtonCategoryConverter x:Key="ForegroundButtonCategoryConverter" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -58,11 +58,11 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     SelectedIndex="{Binding SelectedIndex}">
-                    <i:Interaction.Triggers>
+                    <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding SelectedCategoryCommand}" CommandParameter="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem}" />
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    </i:Interaction.Triggers>-->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -81,19 +81,26 @@
                                 Height="100"
                                 Margin="5,0"
                                 md:ShadowAssist.ShadowDepth="Depth0"
+                                Background="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"
                                 BorderThickness="0"
                                 UniformCornerRadius="25">
                                 <Grid>
-                                    <Image Source="{Binding Key.TYPE_ID, Converter={StaticResource TypeToBackgroundConverter}}"
-                                           Stretch="UniformToFill"/>
-                                    <!--Background="{Binding _image, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"-->
-
                                     <TextBlock
-                                    Margin="15,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="25"
-                                    Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
-                                    Text="{Binding Key.TYPE_NAME}" />
+                                        Margin="15,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
+                                        Text="{Binding Key.TYPE_NAME}" />
+                                    <Button
+                                        Margin="0,0,5,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding DataContext.EditCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding Key}"
+                                        Content="{md:PackIcon Kind=Edit}"
+                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundButtonCategoryConverter}}"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="Edit" />
                                 </Grid>
                             </md:Card>
                         </DataTemplate>
@@ -109,7 +116,7 @@
                 <TextBlock
                     Margin="5,0"
                     Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                    Text="Danh mục" />
+                    Text="Thực đơn" />
                 <ListView
                     x:Name="cakesListView"
                     Grid.Row="1"
@@ -152,20 +159,12 @@
                                     </Grid.RowDefinitions>
 
                                     <Grid>
-                                        <!--<Border
-                                            Margin="0,0,0,10"
-                                            BorderThickness="0"
-                                            CornerRadius="25">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                                            </Border.Background>
-                                        </Border>-->
                                         <Border
                                             Margin="0,0,0,10"
                                             BorderThickness="0"
                                             CornerRadius="25">
                                             <Border.Background>
-                                                <ImageBrush ImageSource="/Resources/Images/donut-4874741.jpg" Stretch="UniformToFill" />
+                                                <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                                             </Border.Background>
                                         </Border>
                                         <md:Card

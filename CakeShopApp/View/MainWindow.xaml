@@ -41,9 +41,6 @@
             <DataTemplate DataType="{x:Type contentVm:CreateOrderScreenViewModel}">
                 <contentCtrl:CreateOrderScreenControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type contentVm:SettingViewModel}">
-                <contentCtrl:SettingControl />
-            </DataTemplate>
         </ResourceDictionary>
     </mde:MaterialWindow.Resources>
 
