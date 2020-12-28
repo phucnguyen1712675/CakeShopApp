@@ -44,6 +44,7 @@
   <ItemGroup>
     <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
       <HintPath>..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
@@ -189,6 +190,7 @@
     </Compile>
     <Compile Include="View\Controls\Dialogs\CalendarPickerControl.xaml.cs">
       <DependentUpon>CalendarPickerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\Dialogs\AddCakeToCakesInOrderDialogControl.xaml.cs">
       <DependentUpon>AddCakeToCakesInOrderDialogControl.xaml</DependentUpon>
     </Compile>

@@ -10,6 +10,8 @@
 namespace CakeShopApp
 {
     using System.Collections.ObjectModel;
+    using PropertyChanged;
+
     [AddINotifyPropertyChangedInterface]
     public partial class CAKE_TYPE
     {
