@@ -1,4 +1,4 @@
-﻿<mde:MaterialWindow
+﻿ <mde:MaterialWindow
     x:Class="CakeShopApp.View.SplashScreen"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

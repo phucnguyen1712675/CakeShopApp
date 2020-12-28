@@ -25,9 +25,9 @@ namespace CakeShopApp
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ORDER> ORDERS { get; set; }
         public virtual DbSet<CAKE> CAKEs { get; set; }
         public virtual DbSet<CAKE_IN_ORDERS> CAKE_IN_ORDERS { get; set; }
         public virtual DbSet<CAKE_TYPE> CAKE_TYPE { get; set; }
-        public virtual DbSet<ORDER> ORDERS { get; set; }
     }
 }

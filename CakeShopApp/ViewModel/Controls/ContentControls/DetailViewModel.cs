@@ -3,6 +3,7 @@ using CakeShopApp.View;
 using CakeShopApp.View.Controls.ContentControls.Dialogs;
 using CakeShopApp.View.Controls.Dialogs;
 using CakeShopApp.ViewModel.Controls.Dialogs;
+using Force.DeepCloner;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,19 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         public CAKE SelectedCake { get; set; }
 
         public bool CanExecute => true;
+        private void BackHomeAction() => MainWindow.Instance.SetContentControl(new HomeScreenViewModel());
+
+        #region Dialogs
 
         private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
             => Console.WriteLine("You could intercept the open and affect the dialog using eventArgs.Session.");
-
-        private void BackHomeAction() => MainWindow.Instance.SetContentControl(new HomeScreenViewModel());
 
         private async void ExecuteAddCateDialog(object obj)
         {
             this._categoryDialogViewModel = new CategoryDialogViewModel()
             {
-                SelectedCakeType = new CAKE_TYPE()
+                SelectedCakeType = new CAKE_TYPE(),
+                Status = "Add cake type"
             };
 
             var view = new CategoryDialogControl
@@ -72,9 +75,11 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
         private async void ExecuteEditCakeDialog(object obj)
         {
+            var clonedCake = this.SelectedCake.ShallowClone();
+
             this._detailDialogViewModel = new DetailDialogViewModel()
             {
-                SelectedCake = this.SelectedCake
+                SelectedCake = clonedCake
             };
 
             var view = new DetailDialogControl
@@ -117,29 +122,25 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
         private void EditCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
-            if (eventArgs.Parameter is bool parameter && parameter == false)
+            if (eventArgs.Parameter is bool parameter &&
+                parameter == false) return;
+
+            using (var db = new CAKESTOREEntities())
             {
-                using (var db = new CAKESTOREEntities())
-                {
-                    var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
-                    db.Entry(cake).Reload();
-                };
-            }
-            else
-            {
-                using (var db = new CAKESTOREEntities())
-                {
-                    var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
-                    var modifiedCake = this._detailDialogViewModel.SelectedCake;
-                    //cake.CAKE_ID = newCake.CAKE_ID;
-                    cake.CAKE_NAME = modifiedCake.CAKE_NAME;
-                    cake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
-                    cake.PRICE = modifiedCake.PRICE;
-                    cake.IMAGE = modifiedCake.IMAGE;
-                    cake.REMAINING_AMOUNT = modifiedCake.REMAINING_AMOUNT;
-                    db.SaveChanges();
-                };
-            }
+                var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
+                var modifiedCake = this._detailDialogViewModel.SelectedCake;
+                //cake.CAKE_ID = newCake.CAKE_ID;
+                cake.CAKE_NAME = modifiedCake.CAKE_NAME;
+                cake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
+                cake.PRICE = modifiedCake.PRICE;
+                cake.IMAGE = modifiedCake.IMAGE;
+                cake.REMAINING_AMOUNT = modifiedCake.REMAINING_AMOUNT;
+                db.SaveChanges();
+
+                this.SelectedCake = cake;
+            };
         }
+
+        #endregion
     }
 }
