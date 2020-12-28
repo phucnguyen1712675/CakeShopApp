@@ -28,9 +28,8 @@ namespace CakeShopApp.ViewModel
             NavigationItems = new List<INavigationItem>()
             {
                 new FirstLevelNavigationItem() { Label = "Trang chủ", Icon = PackIconKind.Home, NavigationItemSelectedCallback = item => new HomeScreenViewModel(), IsSelected = true },
-                new FirstLevelNavigationItem() { Label = "Thêm đơn hàng", Icon = PackIconKind.Cart, NavigationItemSelectedCallback = item => CreateOrderScreenViewModel.Instance, IsSelected = true },
-                //new FirstLevelNavigationItem() { Label = "Thống kê", Icon = PackIconKind.CashUsd, NavigationItemSelectedCallback = item => new HomeScreenViewModel()},
-                //new FirstLevelNavigationItem() { Label = "Thêm món bánh mới", Icon = PackIconKind.Plus, NavigationItemSelectedCallback = item => new HomeScreenViewModel() },
+                new FirstLevelNavigationItem() { Label = "Thống kê", Icon = PackIconKind.CashUsd, NavigationItemSelectedCallback = item => new StatisticsViewModel()},
+                new FirstLevelNavigationItem() { Label = "Thêm đơn hàng", Icon = PackIconKind.Cart, NavigationItemSelectedCallback = item => CreateOrderScreenViewModel.Instance }
             };
             SelectedNavigationItem = NavigationItems[0];
         }

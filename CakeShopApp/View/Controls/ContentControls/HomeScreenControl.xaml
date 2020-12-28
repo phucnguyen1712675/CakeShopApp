@@ -55,14 +55,9 @@
                     Grid.Row="1"
                     Margin="0,30"
                     ItemsSource="{Binding CakeCategories}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     SelectedIndex="{Binding SelectedIndex}">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding SelectedCategoryCommand}" CommandParameter="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -77,8 +72,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <md:Card
-                                Width="200"
-                                Height="100"
+                                Width="180"
+                                Height="60"
                                 Margin="5,0"
                                 md:ShadowAssist.ShadowDepth="Depth0"
                                 Background="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"
@@ -86,12 +81,14 @@
                                 UniformCornerRadius="25">
                                 <Grid>
                                     <TextBlock
+                                        Width="120"
                                         Margin="15,0,0,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="16"
                                         Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
-                                        Text="{Binding Key.TYPE_NAME}" />
+                                        Text="{Binding Key.TYPE_NAME}"
+                                        TextTrimming="CharacterEllipsis" />
                                     <Button
                                         Margin="0,0,5,0"
                                         HorizontalAlignment="Right"

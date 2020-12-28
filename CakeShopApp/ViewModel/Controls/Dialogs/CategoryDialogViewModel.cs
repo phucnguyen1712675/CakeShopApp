@@ -26,5 +26,6 @@ namespace CakeShopApp.ViewModel.Controls.Dialogs
                 }
             }
         }
+        public string Status { get; set; }
     }
 }
