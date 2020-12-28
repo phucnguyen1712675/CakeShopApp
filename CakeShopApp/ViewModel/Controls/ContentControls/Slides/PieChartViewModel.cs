@@ -8,6 +8,7 @@ using LiveCharts.Wpf;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
     public class PieChartViewModel : BaseViewModel
     {
         public SeriesCollection SeriesCollection { get; set; }
+        public Func<ChartPoint, string> PointLabel { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public CalendarPickerViewModel CalendarPickerViewModel { get; set; }
@@ -27,6 +29,9 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
 
         public PieChartViewModel()
         {
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+            PointLabel = chartPoint => chartPoint.Y.ToString("#,###", cul.NumberFormat) + " đồng";
+
             using (var db = new CAKESTOREEntities())
             {
                 //Get orders list
@@ -110,7 +115,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
                     this.SeriesCollection.Add(new PieSeries
                     {
                         Title = item.Key.TYPE_NAME,
-                        Values = new ChartValues<double> { item.Value }
+                        Values = new ChartValues<double> { item.Value },
+                        LabelPoint = PointLabel
                     });
                 }
             };

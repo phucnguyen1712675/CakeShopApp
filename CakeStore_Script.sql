@@ -70,7 +70,7 @@ CREATE TABLE [dbo].[ORDERS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[CAKE] ([CAKE_ID], [CAKE_NAME], [CAKE_TYPE], [PRICE], [IMAGE], [REMAINING_AMOUNT], [DESCRIPTION]) VALUES (1, N'Bánh kem soloca', 1, 2500000, N'\\Image\\Cake\\1\\1.jpg
+INSERT [dbo].[CAKE] ([CAKE_ID], [CAKE_NAME], [CAKE_TYPE], [PRICE], [IMAGE], [REMAINING_AMOUNT], [DESCRIPTION]) VALUES (1, N'Bánh kem soloca', 1, 250000, N'\\Image\\Cake\\1\\1.jpg
 ', 5, N'Bánh kem 3 tầng, được phủ bên ngoài bởi lớp socola đen và bên trên là lớp socola trắng.')
 INSERT [dbo].[CAKE] ([CAKE_ID], [CAKE_NAME], [CAKE_TYPE], [PRICE], [IMAGE], [REMAINING_AMOUNT], [DESCRIPTION]) VALUES (2, N'Bánh Donut vị dâu', 2, 20000, N'\\Image\\Cake\\2\\2.jpg
 ', 20, N'Bánh Donut màu hồng nhạt bắt mắt cùng với hương vị của những quả dâu ngọt ngào. ')

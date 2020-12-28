@@ -30,7 +30,9 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
             //Get all months name
             Labels = DateTimeFormatInfo.CurrentInfo.MonthNames;
             Labels = Labels.Take(Labels.Count() - 1).ToArray();
-            Formatter = value => value.ToString("N");
+
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+            Formatter = value => value.ToString("#,###", cul.NumberFormat) + " đồng";
         }
 
         private void GetChartDictinary()
