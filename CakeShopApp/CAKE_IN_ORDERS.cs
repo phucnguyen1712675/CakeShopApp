@@ -17,6 +17,8 @@ namespace CakeShopApp
     {
         public int ORDERS_ID { get; set; }
         public int CAKE_ID { get; set; }
+
+
         public Nullable<int> NUMBER { get; set; }
     
         public virtual CAKE CAKE { get; set; }

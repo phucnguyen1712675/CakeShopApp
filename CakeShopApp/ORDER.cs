@@ -14,6 +14,7 @@ namespace CakeShopApp
     using PropertyChanged;
 
     [AddINotifyPropertyChangedInterface]
+
     public partial class ORDER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +25,6 @@ namespace CakeShopApp
     
         public int ORDERS_ID { get; set; }
         public Nullable<System.DateTime> DATE_CREATE { get; set; }
-        public Nullable<int> CAKE_LIST { get; set; }
         public string CUSTOMER_NAME { get; set; }
         public string CUSTOMER_PHONE { get; set; }
         public string CUSTOMER_ADDRESS { get; set; }
