@@ -17,6 +17,10 @@ namespace CakeShopApp.Converters
             {
                 return DependencyProperty.UnsetValue;
             }
+            if (value == null)
+            {
+                return null;
+            }
             double money = (double)value;
 
             string result;

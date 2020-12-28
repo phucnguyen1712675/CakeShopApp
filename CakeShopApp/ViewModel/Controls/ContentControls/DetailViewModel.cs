@@ -23,13 +23,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         public ICommand RunAddCateCommand => new AnotherCommandImplementation(ExecuteAddCateDialog);
         public ICommand RunAddCakeCommand => new AnotherCommandImplementation(ExecuteAddCakeDialog);
         public ICommand RunEditCakeCommand => new AnotherCommandImplementation(ExecuteEditCakeDialog);
-
         public CAKE SelectedCake { get; set; }
-
-        public DetailViewModel()
-        {
-
-        }
 
         public bool CanExecute => true;
 
@@ -51,7 +45,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
 
             //show the dialog
-            var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, AddCakeDialogClosingEventHandler);
+            var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, AddCateDialogClosingEventHandler);
 
             //check the result...
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
@@ -95,21 +89,15 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
         }
 
-        private void EditCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        private void AddCateDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
             if (eventArgs.Parameter is bool parameter &&
                 parameter == false) return;
 
             using (var db = new CAKESTOREEntities())
             {
-                var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
-                var modifiedCake = this._detailDialogViewModel.SelectedCake;
-                //cake.CAKE_ID = newCake.CAKE_ID;
-                cake.CAKE_NAME = modifiedCake.CAKE_NAME;
-                cake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
-                cake.PRICE = modifiedCake.PRICE;
-                cake.IMAGE = modifiedCake.IMAGE;
-                cake.REMAINING_AMOUNT = modifiedCake.REMAINING_AMOUNT;
+                var newCate = this._categoryDialogViewModel.SelectedCakeType;
+                db.CAKE_TYPE.Add(newCate);
                 db.SaveChanges();
             };
         }
@@ -125,6 +113,33 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 db.CAKEs.Add(newCake);
                 db.SaveChanges();
             };
+        }
+
+        private void EditCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (eventArgs.Parameter is bool parameter && parameter == false)
+            {
+                using (var db = new CAKESTOREEntities())
+                {
+                    var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
+                    db.Entry(cake).Reload();
+                };
+            }
+            else
+            {
+                using (var db = new CAKESTOREEntities())
+                {
+                    var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
+                    var modifiedCake = this._detailDialogViewModel.SelectedCake;
+                    //cake.CAKE_ID = newCake.CAKE_ID;
+                    cake.CAKE_NAME = modifiedCake.CAKE_NAME;
+                    cake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
+                    cake.PRICE = modifiedCake.PRICE;
+                    cake.IMAGE = modifiedCake.IMAGE;
+                    cake.REMAINING_AMOUNT = modifiedCake.REMAINING_AMOUNT;
+                    db.SaveChanges();
+                };
+            }
         }
     }
 }

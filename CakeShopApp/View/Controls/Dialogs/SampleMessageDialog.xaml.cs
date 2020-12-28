@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CakeShopApp.View.Controls.ContentControls
+namespace CakeShopApp.View.Controls.Dialogs
 {
     /// <summary>
-    /// Interaction logic for SettingControl.xaml
+    /// Interaction logic for SampleMessageDialog.xaml
     /// </summary>
-    public partial class SettingControl : UserControl
+    public partial class SampleMessageDialog : UserControl
     {
-        public SettingControl()
+        public SampleMessageDialog()
         {
             InitializeComponent();
         }

@@ -10,11 +10,10 @@
 namespace CakeShopApp
 {
     using System;
-    using System.Collections.ObjectModel;
+    using System.Collections.Generic;
     using PropertyChanged;
 
     [AddINotifyPropertyChangedInterface]
-
     public partial class CAKE_IN_ORDERS
     {
         public int ORDERS_ID { get; set; }

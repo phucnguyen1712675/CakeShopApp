@@ -6,21 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace CakeShopApp.Converters
 {
-    public class StringToVisibilityConverter : IValueConverter
+    public class ForegroundButtonCategoryConverter : IValueConverter
     {
-        public bool IsReversed { get; set; }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == DependencyProperty.UnsetValue)
             {
                 return DependencyProperty.UnsetValue;
             }
-
-            string str = (string)value;
-            var result = !IsReversed ? string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible : string.IsNullOrEmpty(str) ? Visibility.Visible : Visibility.Collapsed;
+            bool isSelected = (bool)value;
+            var result = !isSelected ? (SolidColorBrush)Application.Current.Resources["SecondaryHueMidBrush"] : (SolidColorBrush)Application.Current.Resources["PrimaryHueDarkBrush"];
             return result;
         }
 
