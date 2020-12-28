@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="408641d2779743a48635d1e5b5618342" Name="Diagram1">
-        <EntityTypeShape EntityType="CAKESTOREModel.CAKE" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAKESTOREModel.CAKE_IN_ORDERS" Width="1.5" PointX="3.125" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAKESTOREModel.CAKE_TYPE" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CAKESTOREModel.ORDER" Width="1.5" PointX="0.625" PointY="4.25" IsExpanded="true" />
-        <AssociationConnector Association="CAKESTOREModel.FK__CAKE__CAKE_TYPE__3D5E1FD2" ManuallyRouted="false" />
-        <AssociationConnector Association="CAKESTOREModel.FK__CAKE_IN_O__CAKE___3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="CAKESTOREModel.FK__CAKE_IN_O__ORDER__47DBAE45" ManuallyRouted="false" />
+      <Diagram DiagramId="408641d2779743a48635d1e5b5618342" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="CAKESTOREModel.CAKE" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="CAKESTOREModel.CAKE_IN_ORDERS" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="CAKESTOREModel.CAKE_TYPE" Width="1.5" PointX="0.75" PointY="1.5" />
+        <AssociationConnector Association="CAKESTOREModel.FK__CAKE__CAKE_TYPE__2A4B4B5E" />
+        <AssociationConnector Association="CAKESTOREModel.FK__CAKE_IN_O__CAKE___2B3F6F97" />
+        <EntityTypeShape EntityType="CAKESTOREModel.ORDER" Width="1.5" PointX="8.75" PointY="1.25" />
+        <AssociationConnector Association="CAKESTOREModel.FK__CAKE_IN_O__ORDER__47DBAE45" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

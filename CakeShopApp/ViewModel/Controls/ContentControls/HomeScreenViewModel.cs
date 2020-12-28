@@ -3,14 +3,13 @@ using CakeShopApp.View;
 using CakeShopApp.View.Controls.ContentControls.Dialogs;
 using CakeShopApp.View.Controls.Dialogs;
 using CakeShopApp.ViewModel.Controls.Dialogs;
-using MaterialDesignExtensions.Model;
+using DrWPF.Windows.Data;
+using Force.DeepCloner;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CakeShopApp.ViewModel.Controls.ContentControls
@@ -20,7 +19,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         private DetailDialogViewModel _detailDialogViewModel;
 
         private CategoryDialogViewModel _categoryDialogViewModel;
-        public Dictionary<CAKE_TYPE, ObservableCollection<CAKE>> CakeCategories { get; set; }
+        public ObservableDictionary<CAKE_TYPE, ObservableCollection<CAKE>> CakeCategories { get; set; }
         public int SelectedIndex { get; set; }
         private ICommand _editCategoryCommand { get; set; }
         public ICommand EditCategoryCommand => _editCategoryCommand ?? (_editCategoryCommand = new CommandHandler((param) => SelectedCategoryAction(param), () => CanExecute));
@@ -33,7 +32,12 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         {
             this.SelectedIndex = 0;
 
-            CakeCategories = new Dictionary<CAKE_TYPE, ObservableCollection<CAKE>>();
+            GetCakeCategories();
+        }
+
+        private void GetCakeCategories()
+        {
+            CakeCategories = new ObservableDictionary<CAKE_TYPE, ObservableCollection<CAKE>>();
 
             using (var db = new CAKESTOREEntities())
             {
@@ -47,6 +51,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
         public bool CanExecute => true;
 
+        #region Dialogs
+
         private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
             => Console.WriteLine("You could intercept the open and affect the dialog using eventArgs.Session.");
 
@@ -57,10 +63,12 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 return;
             }
             var cate = param as CAKE_TYPE;
+            var clonedCate = cate.ShallowClone();
 
             this._categoryDialogViewModel = new CategoryDialogViewModel()
             {
-                SelectedCakeType = cate
+                SelectedCakeType = clonedCate,
+                Status = "Edit cake type"
             };
 
             var view = new CategoryDialogControl
@@ -82,6 +90,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 return;
             }
             var cake = param as CAKE;
+            //var clonedCake = cake.DeepClone();
 
             var detailVm = new DetailViewModel
             {
@@ -94,7 +103,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         {
             this._categoryDialogViewModel = new CategoryDialogViewModel()
             {
-                SelectedCakeType = new CAKE_TYPE()
+                SelectedCakeType = new CAKE_TYPE(),
+                Status = "Add cake type"
             };
 
             var view = new CategoryDialogControl
@@ -156,25 +166,32 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
         private void EditCateDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
-            if (eventArgs.Parameter is bool parameter && parameter == false)
+            if (eventArgs.Parameter is bool parameter &&
+                parameter == false) return;
+
+            using (var db = new CAKESTOREEntities())
             {
-                using (var db = new CAKESTOREEntities())
+                var modifiedCate = this._categoryDialogViewModel.SelectedCakeType;
+                var cate = db.CAKE_TYPE.Find(modifiedCate.TYPE_ID);
+                var cateFromDic = CakeCategories.FirstOrDefault(c => c.Key.TYPE_ID == cate.TYPE_ID).Key;
+                var tempIndex = this.SelectedIndex;
+
+                var tryUpdateKey = DictionaryHelper.UpdateKey(CakeCategories, cateFromDic, modifiedCate);
+                if (tryUpdateKey)
                 {
-                    var modifiedCate = this._categoryDialogViewModel.SelectedCakeType;
-                    var cate = db.CAKE_TYPE.Find(modifiedCate.TYPE_ID);
-                    db.Entry(cate).Reload();
-                };
-            }
-            else
-            {
-                using (var db = new CAKESTOREEntities())
-                {
-                    var modifiedCate = this._categoryDialogViewModel.SelectedCakeType;
-                    var cate = db.CAKE_TYPE.Find(modifiedCate.TYPE_ID);
                     cate.TYPE_NAME = modifiedCate.TYPE_NAME;
                     db.SaveChanges();
-                };
-            }
+
+                    GetCakeCategories();
+                    this.SelectedIndex = tempIndex;
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+            };
         }
+
+        #endregion
     }
 }
