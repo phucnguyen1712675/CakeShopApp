@@ -10,7 +10,6 @@
 namespace CakeShopApp
 {
     using System;
-    using System.Collections.Generic;
     using PropertyChanged;
 
     [AddINotifyPropertyChangedInterface]
