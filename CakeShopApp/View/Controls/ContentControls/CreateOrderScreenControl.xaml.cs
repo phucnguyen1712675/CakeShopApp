@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CakeShopApp.ViewModel.Controls.ContentControls;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,16 @@ namespace CakeShopApp.View.Controls.ContentControls
         public CreateOrderScreenControl()
         {
             InitializeComponent();
+        }
+
+        private void valueChangeNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CreateOrderScreenViewModel.Instance.caculateTotalPrice();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = CreateOrderScreenViewModel.Instance.ORDER;
         }
     }
 }

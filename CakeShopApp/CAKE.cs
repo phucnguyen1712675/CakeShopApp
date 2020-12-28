@@ -10,14 +10,14 @@
 namespace CakeShopApp
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     
     public partial class CAKE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CAKE()
         {
-            this.CAKE_IN_ORDERS = new HashSet<CAKE_IN_ORDERS>();
+            this.CAKE_IN_ORDERS = new ObservableCollection<CAKE_IN_ORDERS>();
         }
     
         public int CAKE_ID { get; set; }
@@ -30,6 +30,6 @@ namespace CakeShopApp
     
         public virtual CAKE_TYPE CAKE_TYPE1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CAKE_IN_ORDERS> CAKE_IN_ORDERS { get; set; }
+        public virtual ObservableCollection<CAKE_IN_ORDERS> CAKE_IN_ORDERS { get; set; }
     }
 }
