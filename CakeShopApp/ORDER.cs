@@ -10,11 +10,13 @@
 namespace CakeShopApp
 {
     using System;
+
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using PropertyChanged;
 
     [AddINotifyPropertyChangedInterface]
+
     public partial class ORDER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

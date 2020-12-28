@@ -4,9 +4,265 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CakeShopApp.View.Controls.ContentControls"
+             xmlns:conv="clr-namespace:CakeShopApp.Converters"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={conv:RatioConverter}, ConverterParameter='1'}"
+             VerticalAlignment="Stretch"
+             Background="White"
+             TextElement.FontFamily="Segeo ui light"
+            TextElement.FontSize="14"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:DoubleToVNDConverter x:Key="DoubleToVNDConverter" />
+            <conv:ImageConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
-            
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Images/CreateOrderBackGound1.jpg" Stretch="UniformToFill" />
+        </Grid.Background>
+        <md:Card 
+            Grid.Column="1"
+            Padding="10"
+            Margin="20,30">
+            <Grid>
+                <StackPanel>
+                    <TextBlock
+                    Margin="10,20,10,0"
+                    Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                    FontWeight="SemiBold"
+                    Text="ĐƠN HÀNG"
+                    FontSize="35"/>
+                    <TextBlock
+                Margin="10,0,10,0"
+                    FontSize="13"
+                  Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                  Text="{Binding ORDER.DATE_CREATE}" />
+
+                    <!--Họ và tên khách hàng-->
+                    <Grid  Margin="20,40,30,25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+                        <md:PackIcon 
+                    Kind="Account" 
+                    Width="20" Height="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+                        <TextBox
+                    x:Name="CustomerNameTextBox"
+                  Grid.Column="1"
+                  md:HintAssist.Hint="Họ và tên KH"
+                  md:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center"
+                    Text="{Binding ORDER.CUSTOMER_NAME}"/>
+                    </Grid>
+                    <!--SDT khách hàng-->
+                    <Grid  Margin="20,25,30,25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+                        <md:PackIcon 
+                    Kind="Phone" 
+                    Width="20" Height="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+                        <TextBox
+                  x:Name="CustomerPhoneTextBox"
+                  Grid.Column="1"
+                  md:HintAssist.Hint="SĐT KH"
+                  md:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center"
+                    Text="{Binding ORDER.CUSTOMER_PHONE}"/>
+                    </Grid>
+                    <!--Địa chỉ khách hàng-->
+                    <Grid  Margin="20,25,30,25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+                        <md:PackIcon 
+                    Kind="House" 
+                    Width="20" Height="20"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"/>
+                        <TextBox
+                  x:Name="CustomerAddressTextBox"
+                  Grid.Column="1"
+                  TextWrapping="Wrap"
+                  AcceptsReturn="True"
+                  VerticalScrollBarVisibility="Auto"
+                  Height="50"
+                  VerticalAlignment="Stretch"
+                  md:HintAssist.Hint="Địa chỉ KH"
+                  md:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding ORDER.CUSTOMER_ADDRESS}"/>
+                    </Grid>
+                </StackPanel>
+                <!--TODO tạo đơn hàng-->
+                <Button Content="Tạo đơn"
+                        Margin="30"
+                        Height="40"
+                        VerticalAlignment="Bottom"/>
+            </Grid>
+        </md:Card>
+
+        <md:Card 
+            Grid.Column="0"
+            Margin="20,30">
+            <Grid>
+                <StackPanel Margin="10">
+                    <TextBlock
+                    Margin="10,20,10,0"
+                    Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                    FontWeight="SemiBold"
+                    Text="GIỎ HÀNG"
+                    FontSize="35"/>
+                    <StackPanel Orientation="Horizontal"  Margin="10,0,10,0" >
+                        <TextBlock
+                            FontSize="13"
+                  Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                  Text="số loại bánh:   " />
+                        <TextBlock
+                            FontSize="13"
+                  Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                  Text="{Binding ORDER.CAKE_IN_ORDERS.Count}" />
+                    </StackPanel>
+                    
+
+                    <ListView
+                        Height="400"
+                    x:Name="CakesinOrderListView"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Margin="10,20"
+                    ItemsSource="{Binding ORDER.CAKE_IN_ORDERS}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#FFB899FF" BorderThickness="0,0,0,1" Padding="5">
+                                    <Grid
+                                Height="100"
+                                Width="700"
+                                VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="0.5*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border CornerRadius="100"
+                                            Height="90"
+                                            Width="90"
+                                            BorderBrush="#FF2196F3"
+                                            BorderThickness="2">
+                                            <Border.Background>
+                                                <ImageBrush   ImageSource="{Binding CAKE.IMAGE, Converter={StaticResource ImageConverter}}"
+                                                          Stretch="UniformToFill"
+                                                          />
+                                            </Border.Background>
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20,0,0,0">
+                                            <TextBlock 
+                                            Style="{StaticResource MaterialDesignButtonTextBlock}"
+                                            FontSize="20"
+                                            Margin="0,5"
+                                            Text="{Binding CAKE.CAKE_NAME}"/>
+                                            <TextBlock 
+                                            Text="{Binding CAKE.CAKE_TYPE1.TYPE_NAME}"/>
+                                        </StackPanel>
+                                        
+                                            <mde:OversizedNumberSpinner 
+                                        Name="CakeInOrderNumberSpinner"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Value="{Binding NUMBER, Mode=TwoWay}"
+                                        Min="0" 
+                                        Width="45"
+                                        Height="60"
+                                        Background="#FF512DA8"
+                                        Max="{Binding CAKE.REMAINING_AMOUNT}"/>
+                                        <TextBox
+                                            Visibility="Hidden"
+                                            x:Name="valueChangeNumber"
+                                            Text="{Binding ElementName=CakeInOrderNumberSpinner, Path=Value}"
+                                            TextChanged="valueChangeNumber_TextChanged"
+                                            />
+
+                                        <TextBlock 
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Grid.Column="3"
+                                        Margin="0,5"
+                                        Style="{StaticResource MaterialDesignButtonTextBlock}"
+                                        FontSize="20"
+                                        Text="{Binding CAKE.PRICE, Converter={StaticResource DoubleToVNDConverter}}"/>
+                                        <!--TODO xóa món hàng-->
+                                        <Button
+                                        VerticalAlignment="Center"
+                                        Grid.Column="4"
+                                        Command="{Binding DataContext.RunDeleteCakeOfCakeInOrder, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding }"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="xóa đơn"
+                                        Foreground="Red">
+                                            <md:PackIcon Kind="CloseBox" />
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackPanel>
+
+                <Button
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Height="60"
+                    Width="380"
+                    Click="Button_Click"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                     md:ButtonAssist.CornerRadius="3 20 20 3">
+                    <StackPanel 
+                    Orientation="Horizontal" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                        <TextBlock Text="Tổng đơn:          "
+                                   Margin="20,0,0,0"
+                                   TextElement.FontSize="20"
+                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                        <TextBlock 
+                            x:Name="TotalPriceTextBlock"
+                            TextElement.FontSize="20"
+                            Text="{Binding ORDER.TOTAL_PRICE, Converter={StaticResource DoubleToVNDConverter}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </md:Card>
+
+       
     </Grid>
 </UserControl>

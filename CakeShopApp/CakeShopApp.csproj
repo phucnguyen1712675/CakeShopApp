@@ -42,6 +42,9 @@
     <ApplicationIcon>Resources\Icons\cheesecake.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -53,6 +56,9 @@
     </Reference>
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.2.4.3\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2312, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0-ci2312\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -92,6 +98,8 @@
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -141,6 +149,7 @@
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\IntegerToVisibilityConverter.cs" />
     <Compile Include="Converters\BackgroundColorForCategoryConverter.cs" />
+    <Compile Include="Converters\RatioConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="ORDER.cs">
@@ -156,6 +165,7 @@
     <Compile Include="ViewModel\Controls\ContentControls\HomeScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\DeleteCakeOfCakeInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />
@@ -165,8 +175,14 @@
     <Compile Include="View\Controls\ContentControls\DetailControl.xaml.cs">
       <DependentUpon>DetailControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controls\Dialogs\AddCakeToCakesInOrderDialogControl.xaml.cs">
+      <DependentUpon>AddCakeToCakesInOrderDialogControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\Dialogs\CategoryDialogControl.xaml.cs">
       <DependentUpon>CategoryDialogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\Dialogs\DeleteCakeOfCakeInOrderDialogControl.xaml.cs">
+      <DependentUpon>DeleteCakeOfCakeInOrderDialogControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\Dialogs\DetailDialogControl.xaml.cs">
       <DependentUpon>DetailDialogControl.xaml</DependentUpon>
@@ -191,7 +207,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Controls\Dialogs\AddCakeToCakesInOrderDialogControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Controls\Dialogs\CategoryDialogControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Dialogs\DeleteCakeOfCakeInOrderDialogControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,6 +304,7 @@
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\CreateOrderBackGound1.jpg" />
     <Resource Include="Resources\Icons\cheesecake.ico" />
   </ItemGroup>
   <ItemGroup>
