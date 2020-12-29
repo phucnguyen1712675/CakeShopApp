@@ -30,7 +30,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
         public PieChartViewModel()
         {
             CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
-            PointLabel = chartPoint => chartPoint.Y.ToString("#,###", cul.NumberFormat) + " đồng";
+            PointLabel = chartPoint => (chartPoint.Y != 0.0 ? chartPoint.Y.ToString("#,###", cul.NumberFormat) : "0.000") + " đồng";
 
             using (var db = new CAKESTOREEntities())
             {
