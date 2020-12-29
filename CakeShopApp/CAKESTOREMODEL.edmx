@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="CAKE_ID" />
           </Key>
-          <Property Name="CAKE_ID" Type="int" Nullable="false" />
+          <Property Name="CAKE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CAKE_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CAKE_TYPE" Type="int" Nullable="false" />
           <Property Name="PRICE" Type="float" />
@@ -30,14 +30,14 @@
           <Key>
             <PropertyRef Name="TYPE_ID" />
           </Key>
-          <Property Name="TYPE_ID" Type="int" Nullable="false" />
+          <Property Name="TYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TYPE_NAME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ORDERS">
           <Key>
             <PropertyRef Name="ORDERS_ID" />
           </Key>
-          <Property Name="ORDERS_ID" Type="int" Nullable="false" />
+          <Property Name="ORDERS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DATE_CREATE" Type="datetime" />
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="CUSTOMER_PHONE" Type="nchar" MaxLength="10" />
@@ -165,9 +165,24 @@
           <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CAKEs" Relationship="CAKESTOREModel.FK__CAKE__CAKE_TYPE__2A4B4B5E" FromRole="CAKE_TYPE" ToRole="CAKE" />
         </EntityType>
-        <Association Name="FK__CAKE__CAKE_TYPE__2A4B4B5E">
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ORDERS_ID" />
+          </Key>
+          <Property Name="ORDERS_ID" Type="Int32" Nullable="false" />
+          <Property Name="DATE_CREATE" Type="DateTime" Precision="3" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_PHONE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRESS" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TOTAL_PRICE" Type="Double" />
+          <NavigationProperty Name="CAKE_IN_ORDERS" Relationship="Self.FK__CAKE_IN_O__ORDER__47DBAE45" FromRole="ORDERS" ToRole="CAKE_IN_ORDERS" />
+        </EntityType>
+        <Association Name="FK__CAKE__CAKE_TYPE__3D5E1FD2">
+          <End Role="CAKE_TYPE" Type="Self.CAKE_TYPE" Multiplicity="1" />
+          <End Role="CAKE" Type="Self.CAKE" Multiplicity="*" />
+        <!--<Association Name="FK__CAKE__CAKE_TYPE__2A4B4B5E">
           <End Type="CAKESTOREModel.CAKE_TYPE" Role="CAKE_TYPE" Multiplicity="1" />
-          <End Type="CAKESTOREModel.CAKE" Role="CAKE" Multiplicity="*" />
+          <End Type="CAKESTOREModel.CAKE" Role="CAKE" Multiplicity="*" />-->
           <ReferentialConstraint>
             <Principal Role="CAKE_TYPE">
               <PropertyRef Name="TYPE_ID" />
@@ -245,7 +260,19 @@
             <EntityTypeMapping TypeName="CAKESTOREModel.CAKE_TYPE">
               <MappingFragment StoreEntitySet="CAKE_TYPE">
                 <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
-                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="CAKESTOREModel.ORDER">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="ORDERS_ID" ColumnName="ORDERS_ID" />
+                <ScalarProperty Name="DATE_CREATE" ColumnName="DATE_CREATE" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_PHONE" ColumnName="CUSTOMER_PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRESS" ColumnName="CUSTOMER_ADDRESS" />
+                <ScalarProperty Name="TOTAL_PRICE" ColumnName="TOTAL_PRICE" />
+                <!--<ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />-->
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

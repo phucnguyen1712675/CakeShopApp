@@ -19,6 +19,10 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         private DetailDialogViewModel _detailDialogViewModel;
 
         private CategoryDialogViewModel _categoryDialogViewModel;
+
+        private AddCakeToCakesInOrderViewModel _addCakeToCakesInOrderViewModel;
+
+        public static HomeScreenViewModel Instance;
         public ObservableDictionary<CAKE_TYPE, ObservableCollection<CAKE>> CakeCategories { get; set; }
         public int SelectedIndex { get; set; }
         private ICommand _editCategoryCommand { get; set; }
@@ -27,6 +31,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         public ICommand SelectedCakeCommand => _selectedCakeCommand ?? (_selectedCakeCommand = new CommandHandler((param) => SelectedCakeAction(param), () => CanExecute));
         public ICommand RunAddCateCommand => new AnotherCommandImplementation(ExecuteAddCateDialog);
         public ICommand RunAddCakeCommand => new AnotherCommandImplementation(ExecuteAddCakeDialog);
+        public ICommand RunAddCakeToOrder => new AnotherCommandImplementation(ExecuteAddCakeToOrderAsync);
 
         public HomeScreenViewModel()
         {
@@ -47,6 +52,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                     CakeCategories.Add(cat, new ObservableCollection<CAKE>(cakeByCateIdList));
                 });
             };
+
+            Instance = this;
         }
 
         public bool CanExecute => true;
@@ -138,6 +145,30 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
         }
 
+        private async void ExecuteAddCakeToOrderAsync(object obj)
+        {
+            CAKE cake = obj as CAKE;
+            this._addCakeToCakesInOrderViewModel = new AddCakeToCakesInOrderViewModel(cake);
+
+            var view = new AddCakeToCakesInOrderDialogControl { 
+                DataContext = this._addCakeToCakesInOrderViewModel
+            };
+
+            var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, AddCaketoOrderClosingEventHandle);
+
+            Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+        }
+
+        //TODO
+        private void AddCaketoOrderClosingEventHandle(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (eventArgs.Parameter is bool parameter &&
+                parameter == false) return;
+
+            var CakeInOrder = this._addCakeToCakesInOrderViewModel.CakeInOrder;
+            CreateOrderScreenViewModel.Instance.AddCakeToOrder(CakeInOrder);
+        }
+
         private void AddCateDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
             if (eventArgs.Parameter is bool parameter &&
@@ -192,6 +223,11 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
         }
 
+        public void updateCakeAmount(int cakeid, int typeid, int number)
+        {
+            var type = CakeCategories.Keys.ToList().FirstOrDefault(item => item.TYPE_ID == typeid);
+            CakeCategories[type].Where(item => item.CAKE_ID == cakeid).Select(item => item.REMAINING_AMOUNT = item.REMAINING_AMOUNT - number);
+        }
         #endregion
     }
 }
