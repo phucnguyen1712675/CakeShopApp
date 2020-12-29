@@ -54,15 +54,18 @@
             </Setter.Value>
         </Setter>-->
         <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
+            <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
-                <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+
+                <!--<Setter Property="VerticalScrollBarVisibility" Value="Visible" />-->
+
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Focusable" Value="false" />
@@ -138,8 +141,8 @@
     </Style>
     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
         <Setter Property="Background" Value="#FF979797" />
-        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
-        <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
         <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
         <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
@@ -297,7 +300,7 @@
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsEnabled" Value="false">
+                                    <Trigger Property="IsEnabled" Value="False">
                                         <Setter TargetName="Bg" Property="Visibility" Value="Hidden" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
