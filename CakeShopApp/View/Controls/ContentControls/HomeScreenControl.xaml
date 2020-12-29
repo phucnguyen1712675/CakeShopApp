@@ -22,6 +22,7 @@
             <conv:ForegroundColorForCategoryConverter x:Key="ForegroundColorForCategoryConverter" />
             <conv:ImageConverter x:Key="ImageConverter" />
             <conv:ForegroundButtonCategoryConverter x:Key="ForegroundButtonCategoryConverter" />
+            <conv:TypeToBackground x:Key="TypeToBackground" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -76,16 +77,18 @@
                                 Height="60"
                                 Margin="5,0"
                                 md:ShadowAssist.ShadowDepth="Depth0"
-                                Background="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource BackgroundColorForCategoryConverter}}"
                                 BorderThickness="0"
                                 UniformCornerRadius="25">
+                                <md:Card.Background>
+                                    <ImageBrush ImageSource="{Binding Key.TYPE_ID, Converter={StaticResource TypeToBackground}}" Stretch="UniformToFill" />
+                                </md:Card.Background>
                                 <Grid>
                                     <TextBlock
                                         Width="120"
                                         Margin="15,0,0,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        FontSize="16"
+                                        FontSize="18"
                                         Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
                                         Text="{Binding Key.TYPE_NAME}"
                                         TextTrimming="CharacterEllipsis" />
