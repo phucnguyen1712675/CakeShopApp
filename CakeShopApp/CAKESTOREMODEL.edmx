@@ -44,7 +44,7 @@
           <Property Name="CUSTOMER_ADDRESS" Type="nvarchar" MaxLength="150" />
           <Property Name="TOTAL_PRICE" Type="float" />
         </EntityType>
-        <Association Name="FK__CAKE__CAKE_TYPE__3D5E1FD2">
+        <Association Name="FK__CAKE__CAKE_TYPE__2A4B4B5E">
           <End Role="CAKE_TYPE" Type="Self.CAKE_TYPE" Multiplicity="1" />
           <End Role="CAKE" Type="Self.CAKE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -56,7 +56,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CAKE_IN_O__CAKE___3E52440B">
+        <Association Name="FK__CAKE_IN_O__CAKE___2B3F6F97">
           <End Role="CAKE" Type="Self.CAKE" Multiplicity="1" />
           <End Role="CAKE_IN_ORDERS" Type="Self.CAKE_IN_ORDERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,11 +85,11 @@
           <EntitySet Name="CAKE_IN_ORDERS" EntityType="Self.CAKE_IN_ORDERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAKE_TYPE" EntityType="Self.CAKE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CAKE__CAKE_TYPE__3D5E1FD2" Association="Self.FK__CAKE__CAKE_TYPE__3D5E1FD2">
+          <AssociationSet Name="FK__CAKE__CAKE_TYPE__2A4B4B5E" Association="Self.FK__CAKE__CAKE_TYPE__2A4B4B5E">
             <End Role="CAKE_TYPE" EntitySet="CAKE_TYPE" />
             <End Role="CAKE" EntitySet="CAKE" />
           </AssociationSet>
-          <AssociationSet Name="FK__CAKE_IN_O__CAKE___3E52440B" Association="Self.FK__CAKE_IN_O__CAKE___3E52440B">
+          <AssociationSet Name="FK__CAKE_IN_O__CAKE___2B3F6F97" Association="Self.FK__CAKE_IN_O__CAKE___2B3F6F97">
             <End Role="CAKE" EntitySet="CAKE" />
             <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
           </AssociationSet>
@@ -102,19 +102,49 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CAKESTOREModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ORDER">
+          <Key>
+            <PropertyRef Name="ORDERS_ID" />
+          </Key>
+          <Property Name="ORDERS_ID" Type="Int32" Nullable="false" />
+          <Property Name="DATE_CREATE" Type="DateTime" Precision="3" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_PHONE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRESS" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TOTAL_PRICE" Type="Double" />
+          <NavigationProperty Name="CAKE_IN_ORDERS" Relationship="CAKESTOREModel.FK__CAKE_IN_O__ORDER__47DBAE45" FromRole="ORDER" ToRole="CAKE_IN_ORDERS" />
+        </EntityType>
+        <EntityContainer Name="CAKESTOREEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ORDERS" EntityType="Self.ORDER" />
+          <EntitySet Name="CAKEs" EntityType="CAKESTOREModel.CAKE" />
+          <EntitySet Name="CAKE_IN_ORDERS" EntityType="CAKESTOREModel.CAKE_IN_ORDERS" />
+          <EntitySet Name="CAKE_TYPE" EntityType="CAKESTOREModel.CAKE_TYPE" />
+          <AssociationSet Name="FK__CAKE__CAKE_TYPE__2A4B4B5E" Association="CAKESTOREModel.FK__CAKE__CAKE_TYPE__2A4B4B5E">
+            <End Role="CAKE_TYPE" EntitySet="CAKE_TYPE" />
+            <End Role="CAKE" EntitySet="CAKEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CAKE_IN_O__CAKE___2B3F6F97" Association="CAKESTOREModel.FK__CAKE_IN_O__CAKE___2B3F6F97">
+            <End Role="CAKE" EntitySet="CAKEs" />
+            <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CAKE_IN_O__ORDER__47DBAE45" Association="CAKESTOREModel.FK__CAKE_IN_O__ORDER__47DBAE45">
+            <End Role="ORDER" EntitySet="ORDERS" />
+            <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="CAKE">
           <Key>
             <PropertyRef Name="CAKE_ID" />
           </Key>
           <Property Name="CAKE_ID" Type="Int32" Nullable="false" />
-          <Property Name="CAKE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CAKE_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CAKE_TYPE" Type="Int32" Nullable="false" />
           <Property Name="PRICE" Type="Double" />
           <Property Name="IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="REMAINING_AMOUNT" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CAKE_TYPE1" Relationship="Self.FK__CAKE__CAKE_TYPE__3D5E1FD2" FromRole="CAKE" ToRole="CAKE_TYPE" />
-          <NavigationProperty Name="CAKE_IN_ORDERS" Relationship="Self.FK__CAKE_IN_O__CAKE___3E52440B" FromRole="CAKE" ToRole="CAKE_IN_ORDERS" />
+          <NavigationProperty Name="CAKE_TYPE1" Relationship="CAKESTOREModel.FK__CAKE__CAKE_TYPE__2A4B4B5E" FromRole="CAKE" ToRole="CAKE_TYPE" />
+          <NavigationProperty Name="CAKE_IN_ORDERS" Relationship="CAKESTOREModel.FK__CAKE_IN_O__CAKE___2B3F6F97" FromRole="CAKE" ToRole="CAKE_IN_ORDERS" />
         </EntityType>
         <EntityType Name="CAKE_IN_ORDERS">
           <Key>
@@ -124,8 +154,8 @@
           <Property Name="ORDERS_ID" Type="Int32" Nullable="false" />
           <Property Name="CAKE_ID" Type="Int32" Nullable="false" />
           <Property Name="NUMBER" Type="Int32" />
-          <NavigationProperty Name="CAKE" Relationship="Self.FK__CAKE_IN_O__CAKE___3E52440B" FromRole="CAKE_IN_ORDERS" ToRole="CAKE" />
-          <NavigationProperty Name="ORDER" Relationship="Self.FK__CAKE_IN_O__ORDER__47DBAE45" FromRole="CAKE_IN_ORDERS" ToRole="ORDERS" />
+          <NavigationProperty Name="CAKE" Relationship="CAKESTOREModel.FK__CAKE_IN_O__CAKE___2B3F6F97" FromRole="CAKE_IN_ORDERS" ToRole="CAKE" />
+          <NavigationProperty Name="ORDER" Relationship="CAKESTOREModel.FK__CAKE_IN_O__ORDER__47DBAE45" FromRole="CAKE_IN_ORDERS" ToRole="ORDER" />
         </EntityType>
         <EntityType Name="CAKE_TYPE">
           <Key>
@@ -133,7 +163,7 @@
           </Key>
           <Property Name="TYPE_ID" Type="Int32" Nullable="false" />
           <Property Name="TYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CAKEs" Relationship="Self.FK__CAKE__CAKE_TYPE__3D5E1FD2" FromRole="CAKE_TYPE" ToRole="CAKE" />
+          <NavigationProperty Name="CAKEs" Relationship="CAKESTOREModel.FK__CAKE__CAKE_TYPE__2A4B4B5E" FromRole="CAKE_TYPE" ToRole="CAKE" />
         </EntityType>
         <EntityType Name="ORDER">
           <Key>
@@ -150,6 +180,9 @@
         <Association Name="FK__CAKE__CAKE_TYPE__3D5E1FD2">
           <End Role="CAKE_TYPE" Type="Self.CAKE_TYPE" Multiplicity="1" />
           <End Role="CAKE" Type="Self.CAKE" Multiplicity="*" />
+        <!--<Association Name="FK__CAKE__CAKE_TYPE__2A4B4B5E">
+          <End Type="CAKESTOREModel.CAKE_TYPE" Role="CAKE_TYPE" Multiplicity="1" />
+          <End Type="CAKESTOREModel.CAKE" Role="CAKE" Multiplicity="*" />-->
           <ReferentialConstraint>
             <Principal Role="CAKE_TYPE">
               <PropertyRef Name="TYPE_ID" />
@@ -159,9 +192,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CAKE_IN_O__CAKE___3E52440B">
-          <End Role="CAKE" Type="Self.CAKE" Multiplicity="1" />
-          <End Role="CAKE_IN_ORDERS" Type="Self.CAKE_IN_ORDERS" Multiplicity="*" />
+        <Association Name="FK__CAKE_IN_O__CAKE___2B3F6F97">
+          <End Type="CAKESTOREModel.CAKE" Role="CAKE" Multiplicity="1" />
+          <End Type="CAKESTOREModel.CAKE_IN_ORDERS" Role="CAKE_IN_ORDERS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CAKE">
               <PropertyRef Name="CAKE_ID" />
@@ -172,10 +205,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CAKE_IN_O__ORDER__47DBAE45">
-          <End Role="ORDERS" Type="Self.ORDER" Multiplicity="1" />
-          <End Role="CAKE_IN_ORDERS" Type="Self.CAKE_IN_ORDERS" Multiplicity="*" />
+          <End Type="CAKESTOREModel.ORDER" Role="ORDER" Multiplicity="1" />
+          <End Type="CAKESTOREModel.CAKE_IN_ORDERS" Role="CAKE_IN_ORDERS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ORDERS">
+            <Principal Role="ORDER">
               <PropertyRef Name="ORDERS_ID" />
             </Principal>
             <Dependent Role="CAKE_IN_ORDERS">
@@ -183,56 +216,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CAKESTOREEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CAKEs" EntityType="Self.CAKE" />
-          <EntitySet Name="CAKE_IN_ORDERS" EntityType="Self.CAKE_IN_ORDERS" />
-          <EntitySet Name="CAKE_TYPE" EntityType="Self.CAKE_TYPE" />
-          <EntitySet Name="ORDERS" EntityType="Self.ORDER" />
-          <AssociationSet Name="FK__CAKE__CAKE_TYPE__3D5E1FD2" Association="Self.FK__CAKE__CAKE_TYPE__3D5E1FD2">
-            <End Role="CAKE_TYPE" EntitySet="CAKE_TYPE" />
-            <End Role="CAKE" EntitySet="CAKEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CAKE_IN_O__CAKE___3E52440B" Association="Self.FK__CAKE_IN_O__CAKE___3E52440B">
-            <End Role="CAKE" EntitySet="CAKEs" />
-            <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CAKE_IN_O__ORDER__47DBAE45" Association="Self.FK__CAKE_IN_O__ORDER__47DBAE45">
-            <End Role="ORDERS" EntitySet="ORDERS" />
-            <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CAKESTOREModelStoreContainer" CdmEntityContainer="CAKESTOREEntities">
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="CAKESTOREModel.ORDER">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="ORDERS_ID" ColumnName="ORDERS_ID" />
+                <ScalarProperty Name="DATE_CREATE" ColumnName="DATE_CREATE" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_PHONE" ColumnName="CUSTOMER_PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRESS" ColumnName="CUSTOMER_ADDRESS" />
+                <ScalarProperty Name="TOTAL_PRICE" ColumnName="TOTAL_PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CAKEs">
             <EntityTypeMapping TypeName="CAKESTOREModel.CAKE">
               <MappingFragment StoreEntitySet="CAKE">
-                <ScalarProperty Name="CAKE_ID" ColumnName="CAKE_ID" />
-                <ScalarProperty Name="CAKE_NAME" ColumnName="CAKE_NAME" />
-                <ScalarProperty Name="CAKE_TYPE" ColumnName="CAKE_TYPE" />
-                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
-                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
-                <ScalarProperty Name="REMAINING_AMOUNT" ColumnName="REMAINING_AMOUNT" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="REMAINING_AMOUNT" ColumnName="REMAINING_AMOUNT" />
+                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="CAKE_TYPE" ColumnName="CAKE_TYPE" />
+                <ScalarProperty Name="CAKE_NAME" ColumnName="CAKE_NAME" />
+                <ScalarProperty Name="CAKE_ID" ColumnName="CAKE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAKE_IN_ORDERS">
             <EntityTypeMapping TypeName="CAKESTOREModel.CAKE_IN_ORDERS">
               <MappingFragment StoreEntitySet="CAKE_IN_ORDERS">
-                <ScalarProperty Name="ORDERS_ID" ColumnName="ORDERS_ID" />
-                <ScalarProperty Name="CAKE_ID" ColumnName="CAKE_ID" />
                 <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="CAKE_ID" ColumnName="CAKE_ID" />
+                <ScalarProperty Name="ORDERS_ID" ColumnName="ORDERS_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAKE_TYPE">
             <EntityTypeMapping TypeName="CAKESTOREModel.CAKE_TYPE">
               <MappingFragment StoreEntitySet="CAKE_TYPE">
-                <ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />
                 <ScalarProperty Name="TYPE_NAME" ColumnName="TYPE_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -246,6 +272,7 @@
                 <ScalarProperty Name="CUSTOMER_PHONE" ColumnName="CUSTOMER_PHONE" />
                 <ScalarProperty Name="CUSTOMER_ADDRESS" ColumnName="CUSTOMER_ADDRESS" />
                 <ScalarProperty Name="TOTAL_PRICE" ColumnName="TOTAL_PRICE" />
+                <!--<ScalarProperty Name="TYPE_ID" ColumnName="TYPE_ID" />-->
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

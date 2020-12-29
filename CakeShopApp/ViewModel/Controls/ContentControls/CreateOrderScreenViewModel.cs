@@ -28,6 +28,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         }
 
         private CAKE_IN_ORDERS _selectedItem;
+
         public ORDER ORDER { get; set; }
 
         private DeleteCakeOfCakeInOrderViewModel _deleteCakeOfCakeInOrderViewModel;
@@ -41,7 +42,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         internal void caculateTotalPrice()
         {
             double totalPrice = 0;
-            foreach ( var item in ORDER.CAKE_IN_ORDERS)
+            foreach (var item in ORDER.CAKE_IN_ORDERS)
             {
                 totalPrice = (double)(totalPrice + item.CAKE.PRICE * item.NUMBER);
             }
@@ -123,7 +124,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
 
             var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, DeleteCakeOfCakeInOrderClosingHandler);
-            
+
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
 
         }

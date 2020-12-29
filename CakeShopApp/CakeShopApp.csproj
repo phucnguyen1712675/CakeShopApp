@@ -42,6 +42,9 @@
     <ApplicationIcon>Resources\Icons\cheesecake.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
@@ -71,6 +74,10 @@
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationTheme.Aero, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PresentationTheme.Aero.0.6.2\lib\net45\PresentationTheme.Aero.dll</HintPath>
     </Reference>
     <Reference Include="PropertyChanged, Version=3.3.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.3.1\lib\net40\PropertyChanged.dll</HintPath>
@@ -151,24 +158,33 @@
     <Compile Include="Converters\BackgroundColorForCategoryConverter.cs" />
     <Compile Include="Converters\RatioConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Converters\TypeToBackground.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
+    <Compile Include="Model\CakeAutocompleteSource.cs" />
+    <Compile Include="Model\CakeItem.cs" />
     <Compile Include="ORDER.cs">
       <DependentUpon>CAKESTOREMODEL.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\AnotherCommandImplementation.cs" />
     <Compile Include="Utils\CommandHandler.cs" />
+    <Compile Include="Utils\DictionaryHelper.cs" />
     <Compile Include="Utils\MyRandom.cs" />
-    <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\ObservableDictionary.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\CreateOrderScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\DetailViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\HomeScreenViewModel.cs" />
+    <Compile Include="ViewModel\Controls\ContentControls\Slides\BasicColumnViewModel.cs" />
+    <Compile Include="ViewModel\Controls\ContentControls\Slides\PieChartViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\AddCakeToCakesInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DeleteCakeOfCakeInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\SampleMessageDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\CalendarPickerViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\OKCancelDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\SampleMessageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />
     <Compile Include="View\Controls\ContentControls\CreateOrderScreenControl.xaml.cs">
@@ -176,6 +192,15 @@
     </Compile>
     <Compile Include="View\Controls\ContentControls\DetailControl.xaml.cs">
       <DependentUpon>DetailControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ContentControls\Slides\BasicColumnControl.xaml.cs">
+      <DependentUpon>BasicColumnControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\ContentControls\Slides\PieChartControl.xaml.cs">
+      <DependentUpon>PieChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\Dialogs\CalendarPickerControl.xaml.cs">
+      <DependentUpon>CalendarPickerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\Dialogs\AddCakeToCakesInOrderDialogControl.xaml.cs">
       <DependentUpon>AddCakeToCakesInOrderDialogControl.xaml</DependentUpon>
@@ -195,17 +220,36 @@
     <Compile Include="View\Controls\ContentControls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controls\Dialogs\OKCancelDialogControl.xaml.cs">
+      <DependentUpon>OKCancelDialogControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\Dialogs\SampleMessageDialog.xaml.cs">
       <DependentUpon>SampleMessageDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\ResourceDictionary\YoonoScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Controls\ContentControls\CreateOrderScreenControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\ContentControls\DetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ContentControls\Slides\BasicColumnControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\ContentControls\Slides\PieChartControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Dialogs\CalendarPickerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\ContentControls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Dialogs\OKCancelDialogControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,6 +354,36 @@
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\9.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\CreateOrderBackGound1.jpg" />
     <Resource Include="Resources\Icons\cheesecake.ico" />
   </ItemGroup>
@@ -323,7 +401,9 @@
     <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.3.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.3.1\build\PropertyChanged.Fody.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\PresentationTheme.Aero.0.6.2\build\net45\PresentationTheme.Aero.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PresentationTheme.Aero.0.6.2\build\net45\PresentationTheme.Aero.targets'))" />
   </Target>
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\PresentationTheme.Aero.0.6.2\build\net45\PresentationTheme.Aero.targets" Condition="Exists('..\packages\PresentationTheme.Aero.0.6.2\build\net45\PresentationTheme.Aero.targets')" />
 </Project>

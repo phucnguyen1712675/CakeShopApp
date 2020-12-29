@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:contentCtrl="clr-namespace:CakeShopApp.View.Controls.ContentControls"
     xmlns:contentVm="clr-namespace:CakeShopApp.ViewModel.Controls.ContentControls"
+    xmlns:conv="clr-namespace:CakeShopApp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:CakeShopApp.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:CakeShopApp.ViewModel"
     Title="Cake Shop App"
     Width="1300"
@@ -22,10 +22,6 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowState="Maximized"
     mc:Ignorable="d">
-
-    <mde:MaterialWindow.DataContext>
-        <vm:MainWindowViewModel />
-    </mde:MaterialWindow.DataContext>
 
     <mde:MaterialWindow.Resources>
         <ResourceDictionary>
@@ -40,6 +36,28 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type contentVm:CreateOrderScreenViewModel}">
                 <contentCtrl:CreateOrderScreenControl />
+            </DataTemplate>
+
+            <conv:ImageConverter x:Key="ImageConverter" />
+
+            <DataTemplate x:Key="itemTemplate">
+                <DockPanel>
+                    <Border
+                        Width="24"
+                        Height="24"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        CornerRadius="90"
+                        DockPanel.Dock="Left">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Path=Image, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+                    <TextBlock
+                        Margin="24,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=Name}" />
+                </DockPanel>
             </DataTemplate>
         </ResourceDictionary>
     </mde:MaterialWindow.Resources>
@@ -109,73 +127,49 @@
                         OpaqueMode="Transparent"
                         ShowNavigationDrawerButton="True"
                         Type="Default">
-                        <Grid HorizontalAlignment="Right">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid Grid.Column="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Name="SearchGrid" VerticalAlignment="Center">
-                                    <md:ColorZone
-                                        Margin="0,0,10,0"
-                                        Padding="8,4,8,4"
-                                        Panel.ZIndex="1"
-                                        md:ShadowAssist.ShadowDepth="Depth1"
-                                        CornerRadius="2"
-                                        Mode="Standard">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <Button Style="{DynamicResource MaterialDesignToolButton}">
-                                                <md:PackIcon Kind="Search" Opacity=".56" />
-                                            </Button>
-                                            <TextBox
-                                                x:Name="SearchTextBox"
-                                                Grid.Column="1"
-                                                MinWidth="200"
-                                                Margin="8,0,0,0"
-                                                VerticalAlignment="Center"
-                                                md:HintAssist.Hint="Search"
-                                                md:TextFieldAssist.DecorationVisibility="Hidden"
-                                                md:TextFieldAssist.HasClearButton="True"
-                                                BorderThickness="0" />
-                                            <Button Grid.Column="2" Style="{DynamicResource MaterialDesignToolButton}">
-                                                <md:PackIcon
-                                                    Margin="8,0,0,0"
-                                                    Kind="Microphone"
-                                                    Opacity=".56" />
-                                            </Button>
-                                        </Grid>
-                                    </md:ColorZone>
-                                </Grid>
-                                <!--<md:PopupBox
-                                    Grid.Column="1"
-                                    PlacementMode="BottomAndAlignRightEdges"
-                                    ToolTip="Tìm kiếm theo">
-                                    <ListBox>
-                                        <ComboBox
-                                            x:Name="SearchByComboBox"
-                                            md:HintAssist.Hint="Tên"
-                                            md:HintAssist.HintOpacity=".26"
-                                            IsEditable="True"
-                                            SelectionChanged="resetSearchBox">
-                                            <ComboBoxItem Content="Tên chuyến đi" IsSelected="True" />
-                                            <ComboBoxItem Content="Tên thành viên" />
-                                            <ComboBoxItem Content="Tên địa điểm" />
-                                        </ComboBox>
-
-                                    </ListBox>
-                                </md:PopupBox>-->
-                            </Grid>
-                        </Grid>
+                        <DockPanel>
+                            <md:PopupBox
+                                DockPanel.Dock="Right"
+                                PlacementMode="BottomAndAlignRightEdges"
+                                StaysOpen="False">
+                                <StackPanel>
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock Margin="0,0,10,0" Text="Light" />
+                                        <ToggleButton Command="{Binding DarkModeCommand}" IsChecked="{Binding IsChecked}" />
+                                        <TextBlock Margin="10,0,0,0" Text="Dark" />
+                                    </StackPanel>
+                                    <Separator />
+                                </StackPanel>
+                            </md:PopupBox>
+                            <mde:Autocomplete
+                                x:Name="autocomplete"
+                                Width="400"
+                                VerticalAlignment="Center"
+                                AutocompleteSource="{Binding Path=AutocompleteSource}"
+                                ItemTemplate="{StaticResource itemTemplate}"
+                                SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}">
+                                <mde:Autocomplete.Hint>
+                                    <StackPanel
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <md:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="Magnify" />
+                                        <TextBlock
+                                            Margin="16,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            Text="Search" />
+                                    </StackPanel>
+                                </mde:Autocomplete.Hint>
+                            </mde:Autocomplete>
+                        </DockPanel>
                     </mde:AppBar>
                     <mde:TransitionContentControl x:Name="contentControl" Grid.Row="1" />
                 </Grid>
