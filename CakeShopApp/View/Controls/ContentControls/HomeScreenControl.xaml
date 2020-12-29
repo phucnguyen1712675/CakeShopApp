@@ -30,7 +30,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <!--  throw in some extra colour for our floating action button  -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -75,7 +77,7 @@
                             <md:Card
                                 Width="180"
                                 Height="60"
-                                Margin="5,0"
+                                Margin="5,0,0,5"
                                 md:ShadowAssist.ShadowDepth="Depth0"
                                 BorderThickness="0"
                                 UniformCornerRadius="25">
@@ -147,7 +149,7 @@
                             <md:Card
                                 Width="220"
                                 Height="290"
-                                Margin="5,0"
+                                Margin="5,0,0,10"
                                 md:ShadowAssist.ShadowDepth="Depth0"
                                 Background="{DynamicResource MaterialDesignBackground}"
                                 BorderThickness="0"
