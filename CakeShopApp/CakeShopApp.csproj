@@ -164,9 +164,11 @@
     <Compile Include="ViewModel\Controls\ContentControls\DetailViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\HomeScreenViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\AddCakeToCakesInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DeleteCakeOfCakeInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\SampleMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />
     <Compile Include="View\Controls\ContentControls\CreateOrderScreenControl.xaml.cs">

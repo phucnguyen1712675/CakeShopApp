@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock
-            x:Name="Message"
+            Text="{Binding Message}"
             Grid.Row="0"
             Margin="0,6,0,0"
             FontSize="18" />

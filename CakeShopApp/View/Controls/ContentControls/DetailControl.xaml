@@ -43,7 +43,7 @@
                     <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                 </Border.Background>
             </Border>
-            <Grid Grid.Column="1" Margin="100,200,0,180">
+            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="100,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -120,17 +120,34 @@
                         Margin="10"
                         Text="{Binding SelectedCake.REMAINING_AMOUNT}" />
                 </Grid>
-                <Button
+                <StackPanel  
                     Grid.Row="3"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"    
+                    Orientation="Horizontal">
+                    <Button
                     Width="150"
                     Height="50"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
                     md:ButtonAssist.CornerRadius="25"
                     Command="{Binding RunEditCakeCommand}"
                     Content="Chỉnh sửa"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     ToolTip="Chỉnh sửa" />
+                    <Button
+                       Margin="20,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Style="{StaticResource MaterialDesignIconButton}"
+                       Command="{Binding RunAddCakeToOrder}"
+                       CommandParameter="{Binding SelectedCake}"
+                       ToolTip="Thêm vào giỏ hàng"
+                       Background="#FF7986CB"
+                       Width="50"
+                       Height="50">
+                        <md:PackIcon Kind="CartArrowDown" Width="30" Height="30"/>
+                    </Button>
+                </StackPanel>
+
             </Grid>
         </Grid>
         <Grid HorizontalAlignment="Left">

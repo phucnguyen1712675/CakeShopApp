@@ -18,11 +18,16 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         private DetailDialogViewModel _detailDialogViewModel;
 
         private CategoryDialogViewModel _categoryDialogViewModel;
+
+        private AddCakeToCakesInOrderViewModel _addCakeToCakesInOrderViewModel;
+
         private ICommand _backHomeCommand { get; set; }
         public ICommand BackHomeCommand => _backHomeCommand ?? (_backHomeCommand = new CommandHandler((param) => BackHomeAction(), () => CanExecute));
         public ICommand RunAddCateCommand => new AnotherCommandImplementation(ExecuteAddCateDialog);
         public ICommand RunAddCakeCommand => new AnotherCommandImplementation(ExecuteAddCakeDialog);
         public ICommand RunEditCakeCommand => new AnotherCommandImplementation(ExecuteEditCakeDialog);
+        public ICommand RunAddCakeToOrder => new AnotherCommandImplementation(ExecuteAddCakeToOrderAsync);
+
         public CAKE SelectedCake { get; set; }
 
         public bool CanExecute => true;
@@ -140,6 +145,30 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                     db.SaveChanges();
                 };
             }
+        }
+        private async void ExecuteAddCakeToOrderAsync(object obj)
+        {
+            CAKE cake = obj as CAKE;
+            this._addCakeToCakesInOrderViewModel = new AddCakeToCakesInOrderViewModel(cake);
+
+            var view = new AddCakeToCakesInOrderDialogControl
+            {
+                DataContext = this._addCakeToCakesInOrderViewModel
+            };
+
+            var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, AddCaketoOrderClosingEventHandle);
+
+            Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+        }
+
+        //TODO
+        private void AddCaketoOrderClosingEventHandle(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (eventArgs.Parameter is bool parameter &&
+                parameter == false) return;
+
+            var CakeInOrder = this._addCakeToCakesInOrderViewModel.CakeInOrder;
+            CreateOrderScreenViewModel.Instance.AddCakeToOrder(CakeInOrder);
         }
     }
 }

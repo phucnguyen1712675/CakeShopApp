@@ -11,7 +11,6 @@ namespace CakeShopApp
 {
     using System;
 
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using PropertyChanged;
 
@@ -27,7 +26,6 @@ namespace CakeShopApp
     
         public int ORDERS_ID { get; set; }
         public Nullable<System.DateTime> DATE_CREATE { get; set; }
-        public Nullable<int> CAKE_LIST { get; set; }
         public string CUSTOMER_NAME { get; set; }
         public string CUSTOMER_PHONE { get; set; }
         public string CUSTOMER_ADDRESS { get; set; }

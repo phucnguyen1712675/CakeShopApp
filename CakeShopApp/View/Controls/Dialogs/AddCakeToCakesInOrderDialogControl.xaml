@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              Background="White"
              VerticalAlignment="Stretch"
-             d:DesignWidth="400">
+             Width="400">
     <Border>
         <Border.Effect>
             <DropShadowEffect
@@ -48,20 +48,21 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock 
                     VerticalAlignment="Center"
-                    Text="{Binding CAKE.CAKE_NAME}"
+                    Text="{Binding Cake.CAKE_NAME}"
                     FontSize="20"
+                    Margin="5,0"
                     TextTrimming="CharacterEllipsis"
                     Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                  <mde:OversizedNumberSpinner
                   Grid.Column="1"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
-                  Value="{Binding NUMBER}"
-                  Min="0" 
+                  Value="{Binding CakeInOrder.NUMBER, Mode=TwoWay}"
+                  Min="1" 
                   Width="65"
                   Height="60"
                   Background="#FF512DA8"
-                  Max="{Binding CAKE.REMAINING_AMOUNT}"/>
+                  Max="{Binding Cake.REMAINING_AMOUNT}"/>
             </Grid>
 
             <StackPanel
@@ -70,7 +71,7 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
                 <Button x:Name="OKButton"
-                Command="{Binding YesCommand}"
+                 Command="{x:Static md:DialogHost.CloseDialogCommand}"
                 IsDefault="True"
                 Style="{DynamicResource MaterialDesignFlatButton}">
                     <Button.CommandParameter>
@@ -81,9 +82,7 @@
                 <!--Click="CancelButton_Click"-->
                 <Button x:Name="CancelButton"
                 Margin="8,0,0,0"
-                Tag="{Binding NewLocation.LOCATION_ID}"
-                
-                Command="{x:Static md:DialogHost.CloseDialogCommand}"
+               Command="{x:Static md:DialogHost.CloseDialogCommand}"
                 IsCancel="True"
                 Style="{DynamicResource MaterialDesignFlatButton}">
                     <Button.CommandParameter>

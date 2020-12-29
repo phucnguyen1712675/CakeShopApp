@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CAKESTOREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CAKESTOREModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CAKE">
           <Key>
             <PropertyRef Name="CAKE_ID" />
           </Key>
-          <Property Name="CAKE_ID" Type="int" Nullable="false" />
+          <Property Name="CAKE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CAKE_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CAKE_TYPE" Type="int" Nullable="false" />
           <Property Name="PRICE" Type="float" />
@@ -30,16 +30,15 @@
           <Key>
             <PropertyRef Name="TYPE_ID" />
           </Key>
-          <Property Name="TYPE_ID" Type="int" Nullable="false" />
+          <Property Name="TYPE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TYPE_NAME" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ORDERS">
           <Key>
             <PropertyRef Name="ORDERS_ID" />
           </Key>
-          <Property Name="ORDERS_ID" Type="int" Nullable="false" />
+          <Property Name="ORDERS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DATE_CREATE" Type="datetime" />
-          <Property Name="CAKE_LIST" Type="int" />
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="CUSTOMER_PHONE" Type="nchar" MaxLength="10" />
           <Property Name="CUSTOMER_ADDRESS" Type="nvarchar" MaxLength="150" />
@@ -99,8 +98,7 @@
             <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CAKESTOREModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -143,7 +141,6 @@
           </Key>
           <Property Name="ORDERS_ID" Type="Int32" Nullable="false" />
           <Property Name="DATE_CREATE" Type="DateTime" Precision="3" />
-          <Property Name="CAKE_LIST" Type="Int32" />
           <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CUSTOMER_PHONE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="CUSTOMER_ADDRESS" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -245,7 +242,6 @@
               <MappingFragment StoreEntitySet="ORDERS">
                 <ScalarProperty Name="ORDERS_ID" ColumnName="ORDERS_ID" />
                 <ScalarProperty Name="DATE_CREATE" ColumnName="DATE_CREATE" />
-                <ScalarProperty Name="CAKE_LIST" ColumnName="CAKE_LIST" />
                 <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
                 <ScalarProperty Name="CUSTOMER_PHONE" ColumnName="CUSTOMER_PHONE" />
                 <ScalarProperty Name="CUSTOMER_ADDRESS" ColumnName="CUSTOMER_ADDRESS" />

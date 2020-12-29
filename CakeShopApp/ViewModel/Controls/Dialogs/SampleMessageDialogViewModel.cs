@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CakeShopApp.ViewModel.Controls.Dialogs
 {
-    class DeleteCakeOfCakeInOrderViewModel
+    public class SampleMessageDialogViewModel : BaseViewModel
     {
-        public DeleteCakeOfCakeInOrderViewModel() { }
+        public string Message { get; set; }
     }
 }
