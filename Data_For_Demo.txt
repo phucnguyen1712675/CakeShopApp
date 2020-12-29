@@ -1,0 +1,9 @@
+Add Loại bánh:
+- Tên loại: Chesse Cake
+Add Bánh mới:
+- Name: Chesse Cake Dâu
+- Category: Chesse Cake
+- Decription: Đây là loại bánh ngọt được làm chủ yếu từ phô mai, tạo vị béo ngậy. Phía trên người ta có thể phủ thêm mứt.
+Chiếc bánh pho mát kem được làm từ những năm 1800 và trở thành một trong những món bánh quen thuộc của người dân New York.
+- Price: 50000
+- Remaining amount: 20
