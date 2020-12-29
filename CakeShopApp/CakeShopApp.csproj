@@ -354,6 +354,8 @@
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\11.jpg" />
+    <Resource Include="Resources\Images\12.jpg" />
     <Resource Include="Resources\Images\1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
