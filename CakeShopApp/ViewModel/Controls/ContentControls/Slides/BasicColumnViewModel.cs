@@ -32,7 +32,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls.Slides
             Labels = Labels.Take(Labels.Count() - 1).ToArray();
 
             CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
-            Formatter = value => value.ToString("#,###", cul.NumberFormat) + " đồng";
+            Formatter = value => (value != 0.0 ? value.ToString("#,###", cul.NumberFormat) : "0.000") + " đồng";
         }
 
         private void GetChartDictinary()

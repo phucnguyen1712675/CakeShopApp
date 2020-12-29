@@ -129,12 +129,12 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             {
                 var cake = db.CAKEs.Find(this.SelectedCake.CAKE_ID);
                 var modifiedCake = this._detailDialogViewModel.SelectedCake;
-                //cake.CAKE_ID = newCake.CAKE_ID;
                 cake.CAKE_NAME = modifiedCake.CAKE_NAME;
                 cake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
                 cake.PRICE = modifiedCake.PRICE;
                 cake.IMAGE = modifiedCake.IMAGE;
                 cake.REMAINING_AMOUNT = modifiedCake.REMAINING_AMOUNT;
+                cake.DESCRIPTION = modifiedCake.DESCRIPTION;
                 db.SaveChanges();
 
                 this.SelectedCake = cake;

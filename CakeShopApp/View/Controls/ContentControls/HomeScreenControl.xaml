@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:CakeShopApp.View.Controls.ContentControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
     d:DesignHeight="700"
     d:DesignWidth="1300"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -24,12 +25,104 @@
             <conv:ForegroundButtonCategoryConverter x:Key="ForegroundButtonCategoryConverter" />
             <conv:TypeToBackground x:Key="TypeToBackground" />
 
+            <DataTemplate x:Key="cateItemTemplate">
+                <md:Card
+                    Width="180"
+                    Height="60"
+                    Margin="5,0"
+                    md:ShadowAssist.ShadowDepth="Depth0"
+                    BorderThickness="0"
+                    UniformCornerRadius="25">
+                    <md:Card.Background>
+                        <ImageBrush ImageSource="{Binding Key.TYPE_ID, Converter={StaticResource TypeToBackground}}" Stretch="UniformToFill" />
+                    </md:Card.Background>
+                    <Grid>
+                        <TextBlock
+                            Width="120"
+                            Margin="15,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
+                            Text="{Binding Key.TYPE_NAME}"
+                            TextTrimming="CharacterEllipsis" />
+                        <Button
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            Command="{Binding DataContext.EditCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                            CommandParameter="{Binding Key}"
+                            Content="{md:PackIcon Kind=Edit}"
+                            Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundButtonCategoryConverter}}"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="Edit" />
+                    </Grid>
+                </md:Card>
+            </DataTemplate>
+
+            <DataTemplate x:Key="cakeItemTemplate">
+                <md:Card
+                    Width="220"
+                    Height="290"
+                    Margin="5,0"
+                    md:ShadowAssist.ShadowDepth="Depth0"
+                    Background="{DynamicResource MaterialDesignBackground}"
+                    BorderThickness="0"
+                    UniformCornerRadius="25">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="220" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Border
+                                Margin="0,0,0,10"
+                                BorderThickness="0"
+                                CornerRadius="25">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                            <md:Card
+                                Width="35"
+                                Height="35"
+                                Margin="8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                md:ShadowAssist.ShadowDepth="Depth2"
+                                Background="{DynamicResource MaterialDesignBackground}"
+                                BorderThickness="0"
+                                UniformCornerRadius="90">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding REMAINING_AMOUNT}" />
+                            </md:Card>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Margin="25,0,0,0">
+                            <TextBlock
+                                Margin="0,5"
+                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                Text="{Binding CAKE_NAME}" />
+                            <TextBlock Margin="0,5" Text="{Binding PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
+                        </StackPanel>
+                    </Grid>
+                </md:Card>
+            </DataTemplate>
+
+            <Style x:Key="listViewItemContainerStyle" TargetType="{x:Type ListViewItem}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <!--  throw in some extra colour for our floating action button  -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+
+                <ResourceDictionary Source="/Resources/ResourceDictionary/YoonoScrollViewerStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -37,14 +130,14 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="240" />
+                <RowDefinition Height="300" />
                 <RowDefinition Height="500" />
             </Grid.RowDefinitions>
 
             <Grid Margin="36,36,36,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
@@ -55,56 +148,15 @@
                     x:Name="cakeCategoriesListView"
                     Grid.Row="1"
                     Margin="0,30"
+                    ItemContainerStyle="{StaticResource listViewItemContainerStyle}"
+                    ItemTemplate="{StaticResource cateItemTemplate}"
                     ItemsSource="{Binding CakeCategories}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     SelectedIndex="{Binding SelectedIndex}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="VerticalContentAlignment" Value="Center" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <md:Card
-                                Width="180"
-                                Height="60"
-                                Margin="5,0"
-                                md:ShadowAssist.ShadowDepth="Depth0"
-                                BorderThickness="0"
-                                UniformCornerRadius="25">
-                                <md:Card.Background>
-                                    <ImageBrush ImageSource="{Binding Key.TYPE_ID, Converter={StaticResource TypeToBackground}}" Stretch="UniformToFill" />
-                                </md:Card.Background>
-                                <Grid>
-                                    <TextBlock
-                                        Width="120"
-                                        Margin="15,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="18"
-                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundColorForCategoryConverter}}"
-                                        Text="{Binding Key.TYPE_NAME}"
-                                        TextTrimming="CharacterEllipsis" />
-                                    <Button
-                                        Margin="0,0,5,0"
-                                        HorizontalAlignment="Right"
-                                        Command="{Binding DataContext.EditCategoryCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Key}"
-                                        Content="{md:PackIcon Kind=Edit}"
-                                        Foreground="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource ForegroundButtonCategoryConverter}}"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        ToolTip="Edit" />
-                                </Grid>
-                            </md:Card>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
                 </ListView>
             </Grid>
             <Grid Grid.Row="1" Margin="36,0,36,36">
@@ -122,6 +174,8 @@
                     Grid.Row="1"
                     Margin="0,30"
                     VerticalAlignment="Center"
+                    ItemContainerStyle="{StaticResource listViewItemContainerStyle}"
+                    ItemTemplate="{StaticResource cakeItemTemplate}"
                     ItemsSource="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem.Value}"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -131,69 +185,11 @@
                             <i:InvokeCommandAction Command="{Binding SelectedCakeCommand}" CommandParameter="{Binding ElementName=cakesListView, Path=SelectedItem}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="VerticalContentAlignment" Value="Center" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <md:Card
-                                Width="220"
-                                Height="290"
-                                Margin="5,0"
-                                md:ShadowAssist.ShadowDepth="Depth0"
-                                Background="{DynamicResource MaterialDesignBackground}"
-                                BorderThickness="0"
-                                UniformCornerRadius="25">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="220" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-
-                                    <Grid>
-                                        <Border
-                                            Margin="0,0,0,10"
-                                            BorderThickness="0"
-                                            CornerRadius="25">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
-                                            </Border.Background>
-                                        </Border>
-                                        <md:Card
-                                            Width="35"
-                                            Height="35"
-                                            Margin="8"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            md:ShadowAssist.ShadowDepth="Depth2"
-                                            Background="{DynamicResource MaterialDesignBackground}"
-                                            BorderThickness="0"
-                                            UniformCornerRadius="90">
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Text="{Binding REMAINING_AMOUNT}" />
-                                        </md:Card>
-                                    </Grid>
-                                    <StackPanel Grid.Row="1" Margin="25,0,0,0">
-                                        <TextBlock
-                                            Margin="0,5"
-                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                            Text="{Binding CAKE_NAME}" />
-                                        <TextBlock Margin="0,5" Text="{Binding PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
-                                    </StackPanel>
-                                </Grid>
-                            </md:Card>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
                 </ListView>
                 <TextBlock
                     Grid.Row="1"

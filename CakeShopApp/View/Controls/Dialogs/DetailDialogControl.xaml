@@ -88,6 +88,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <TextBox
@@ -109,8 +110,21 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <ComboBox
+                <TextBox
                     Grid.Row="2"
+                    Margin="0,12,0,0"
+                    md:HintAssist.Hint="Description"
+                    md:HintAssist.IsFloating="True">
+                    <TextBox.Text>
+                        <Binding Path="SelectedCake.DESCRIPTION" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox
+                    Grid.Row="3"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Category"
                     ItemsSource="{Binding CakeCategories}"
@@ -128,7 +142,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBox
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Price"
                     md:HintAssist.IsFloating="True">
@@ -144,7 +158,7 @@
                     </TextBox.Text>
                 </TextBox>
                 <TextBox
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Remaining amount"
                     md:HintAssist.IsFloating="True">

@@ -27,20 +27,21 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             }
         }
 
-        private CreateOrderScreenViewModel() {
+        private CreateOrderScreenViewModel()
+        {
             ORDER = new CAKESTOREEntities().ORDERS.FirstOrDefault(item => item.ORDERS_ID == 3);
         }
 
         private CAKE_IN_ORDERS _selectedItem;
 
-        public ORDER ORDER{get;set;}
+        public ORDER ORDER { get; set; }
 
         private DeleteCakeOfCakeInOrderViewModel _deleteCakeOfCakeInOrderViewModel;
 
         internal void caculateTotalPrice()
         {
             double totalPrice = 0;
-            foreach ( var item in ORDER.CAKE_IN_ORDERS)
+            foreach (var item in ORDER.CAKE_IN_ORDERS)
             {
                 totalPrice = (double)(totalPrice + item.CAKE.PRICE * item.NUMBER);
             }
@@ -67,7 +68,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
 
             var result = await DialogHost.Show(view, MainWindowViewModel.Instance.Identifier, ExtendedOpenedEventHandler, DeleteCakeOfCakeInOrderClosingHandler);
-            
+
             Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
 
         }
@@ -77,7 +78,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             if (eventArgs.Parameter is bool parameter &&
                parameter == false) return;
 
-            using(var db = new CAKESTOREEntities())
+            using (var db = new CAKESTOREEntities())
             {
                 //tính lại tổng giá
                 var resultPrice = ORDER.TOTAL_PRICE;

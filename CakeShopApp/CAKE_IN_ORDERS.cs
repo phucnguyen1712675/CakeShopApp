@@ -10,6 +10,7 @@
 namespace CakeShopApp
 {
     using System;
+    using System.Collections.ObjectModel;
     using PropertyChanged;
 
     [AddINotifyPropertyChangedInterface]

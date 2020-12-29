@@ -11,8 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
 namespace CakeShopApp.ViewModel.Controls.ContentControls
 {
     public class HomeScreenViewModel : BaseViewModel
@@ -28,8 +27,6 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
         public ICommand SelectedCakeCommand => _selectedCakeCommand ?? (_selectedCakeCommand = new CommandHandler((param) => SelectedCakeAction(param), () => CanExecute));
         public ICommand RunAddCateCommand => new AnotherCommandImplementation(ExecuteAddCateDialog);
         public ICommand RunAddCakeCommand => new AnotherCommandImplementation(ExecuteAddCakeDialog);
-
-         
 
         public HomeScreenViewModel()
         {
