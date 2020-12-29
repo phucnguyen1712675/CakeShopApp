@@ -89,7 +89,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 HomeScreenViewModel.Instance.updateCakeAmount(x.CAKE_ID, x.CAKE.CAKE_TYPE, (int)x.NUMBER);
                 x.CAKE = null;
             }); //TODO !!!!
-            
+
             using (var db = new CAKESTOREEntities())
             {
                 db.ORDERS.Add(ORDER);
