@@ -88,6 +88,7 @@
                             VerticalAlignment="Center"
                             md:HintAssist.Hint="SĐT KH"
                             md:TextFieldAssist.HasClearButton="True"
+                            MaxLength="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             Text="{Binding ORDER.CUSTOMER_PHONE}" />
                     </Grid>
