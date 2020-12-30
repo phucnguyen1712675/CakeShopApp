@@ -43,7 +43,10 @@
                     <ImageBrush ImageSource="{Binding SelectedCake.IMAGE, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill" />
                 </Border.Background>
             </Border>
-            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="100,0,0,0">
+            <Grid
+                Grid.Column="1"
+                Margin="100,0,0,0"
+                VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -120,32 +123,31 @@
                         Margin="10"
                         Text="{Binding SelectedCake.REMAINING_AMOUNT}" />
                 </Grid>
-                <StackPanel  
+                <StackPanel
                     Grid.Row="3"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"    
+                    VerticalAlignment="Bottom"
                     Orientation="Horizontal">
                     <Button
-                    Width="150"
-                    Height="50"
-                    md:ButtonAssist.CornerRadius="25"
-                    Command="{Binding RunEditCakeCommand}"
-                    Content="Chỉnh sửa"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    ToolTip="Chỉnh sửa" />
+                        Width="150"
+                        Height="50"
+                        md:ButtonAssist.CornerRadius="25"
+                        Command="{Binding RunEditCakeCommand}"
+                        Content="Chỉnh sửa"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Chỉnh sửa" />
                     <Button
-                       Margin="20,0,0,0"
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       Style="{StaticResource MaterialDesignIconButton}"
-                       Command="{Binding RunAddCakeToOrder}"
-                       CommandParameter="{Binding SelectedCake}"
-                       ToolTip="Thêm vào giỏ hàng"
-                       Background="#FF7986CB"
-                       Width="50"
-                       Height="50">
-                        <md:PackIcon Kind="CartArrowDown" Width="30" Height="30"/>
-                    </Button>
+                        Width="50"
+                        Height="50"
+                        Margin="20,0,0,0"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Command="{Binding RunAddCakeToOrder}"
+                        CommandParameter="{Binding SelectedCake}"
+                        Content="{md:PackIcon Kind=CartArrowDown}"
+                        Foreground="{DynamicResource MaterialDesignBackground}"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="Thêm vào giỏ hàng" />
                 </StackPanel>
 
             </Grid>
