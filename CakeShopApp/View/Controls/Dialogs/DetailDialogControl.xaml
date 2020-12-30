@@ -29,7 +29,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Width="250">
+    <Grid Width="320">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -112,9 +112,12 @@
                 </TextBox>
                 <TextBox
                     Grid.Row="2"
+                    Height="80"
                     Margin="0,12,0,0"
                     md:HintAssist.Hint="Description"
-                    md:HintAssist.IsFloating="True">
+                    md:HintAssist.IsFloating="True"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto">
                     <TextBox.Text>
                         <Binding Path="SelectedCake.DESCRIPTION" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -153,6 +156,7 @@
                             UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                <domain:IsNumericValidationRule ValidatesOnTargetUpdated="True" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

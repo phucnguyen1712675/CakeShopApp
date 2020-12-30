@@ -35,12 +35,12 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
         public HomeScreenViewModel()
         {
-            this.SelectedIndex = 0;
-
-            GetCakeCategories();
+            GetCakeCategories(0);
+            
+            Instance = this;
         }
 
-        private void GetCakeCategories()
+        private void GetCakeCategories(int selectedIndex)
         {
             CakeCategories = new ObservableDictionary<CAKE_TYPE, ObservableCollection<CAKE>>();
 
@@ -53,7 +53,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 });
             };
 
-            Instance = this;
+            this.SelectedIndex = selectedIndex;
         }
 
         public bool CanExecute => true;
@@ -174,12 +174,16 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             if (eventArgs.Parameter is bool parameter &&
                 parameter == false) return;
 
+            var tempIndex = this.SelectedIndex;
+
             using (var db = new CAKESTOREEntities())
             {
                 var newCate = this._categoryDialogViewModel.SelectedCakeType;
                 db.CAKE_TYPE.Add(newCate);
                 db.SaveChanges();
             };
+
+            GetCakeCategories(tempIndex);
         }
 
         private void AddCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -187,12 +191,17 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             if (eventArgs.Parameter is bool parameter &&
                 parameter == false) return;
 
+            var tempIndex = this.SelectedIndex;
+
             using (var db = new CAKESTOREEntities())
             {
                 var newCake = this._detailDialogViewModel.SelectedCake;
+                newCake.CAKE_TYPE = this._detailDialogViewModel.CakeCategories[this._detailDialogViewModel.SelectedIndex].TYPE_ID;
                 db.CAKEs.Add(newCake);
                 db.SaveChanges();
             };
+
+            GetCakeCategories(tempIndex);
         }
 
         private void EditCateDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -200,21 +209,22 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             if (eventArgs.Parameter is bool parameter &&
                 parameter == false) return;
 
+            var tempIndex = this.SelectedIndex;
+
             using (var db = new CAKESTOREEntities())
             {
                 var modifiedCate = this._categoryDialogViewModel.SelectedCakeType;
                 var cate = db.CAKE_TYPE.Find(modifiedCate.TYPE_ID);
                 var cateFromDic = CakeCategories.FirstOrDefault(c => c.Key.TYPE_ID == cate.TYPE_ID).Key;
-                var tempIndex = this.SelectedIndex;
 
                 var tryUpdateKey = DictionaryHelper.UpdateKey(CakeCategories, cateFromDic, modifiedCate);
+
                 if (tryUpdateKey)
                 {
                     cate.TYPE_NAME = modifiedCate.TYPE_NAME;
                     db.SaveChanges();
 
-                    GetCakeCategories();
-                    this.SelectedIndex = tempIndex;
+                    GetCakeCategories(tempIndex);
                 }
                 else
                 {

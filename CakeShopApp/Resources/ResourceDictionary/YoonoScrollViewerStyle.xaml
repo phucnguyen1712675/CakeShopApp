@@ -59,9 +59,7 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
-
                 <!--<Setter Property="VerticalScrollBarVisibility" Value="Visible" />-->
-
             </Trigger>
         </Style.Triggers>
     </Style>
