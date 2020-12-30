@@ -184,7 +184,6 @@
     <Compile Include="ViewModel\Controls\Dialogs\SampleMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CalendarPickerViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\OKCancelDialogViewModel.cs" />
-    <Compile Include="ViewModel\Controls\Dialogs\SampleMessageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />
     <Compile Include="View\Controls\ContentControls\CreateOrderScreenControl.xaml.cs">
