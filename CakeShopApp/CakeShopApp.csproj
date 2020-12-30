@@ -159,6 +159,7 @@
     <Compile Include="Converters\RatioConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Converters\TypeToBackground.cs" />
+    <Compile Include="Domain\IsNumericValidationRule.cs" />
     <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Model\CakeAutocompleteSource.cs" />
     <Compile Include="Model\CakeItem.cs" />
@@ -182,7 +183,6 @@
     <Compile Include="ViewModel\Controls\Dialogs\DeleteCakeOfCakeInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\OKCancelDialogViewModel.cs" />
-    <Compile Include="ViewModel\Controls\Dialogs\SampleMessageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />
     <Compile Include="View\Controls\ContentControls\CreateOrderScreenControl.xaml.cs">
@@ -352,6 +352,12 @@
       <DependentUpon>CAKESTOREMODEL.edmx</DependentUpon>
       <LastGenOutput>CAKESTOREMODEL.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\12.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

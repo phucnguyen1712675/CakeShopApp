@@ -11,6 +11,16 @@ namespace CakeShopApp.Converters
 {
     public class DoubleToVNDConverter : IValueConverter
     {
+        private readonly List<string> badWordList = new List<string>()
+        {
+            " đồng",
+            "."
+        };
+        private static string GetNumbers(string input)
+        {
+            return new string(input.Where(c => char.IsDigit(c)).ToArray());
+        }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == DependencyProperty.UnsetValue)
@@ -40,18 +50,19 @@ namespace CakeShopApp.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string money = (string)value;
-            var badWordList = new List<string>()
-            {
-                " đồng",
-                "."
-            };
+            
             foreach (string badWord in badWordList)
             {
                 money = money.Replace(badWord, string.Empty);
             }
-            var result = double.Parse(money, CultureInfo.InvariantCulture);
 
-            return result;
+            if (!money.All(char.IsDigit) && !string.IsNullOrEmpty(money))
+            {
+                money = GetNumbers(money);
+                return double.Parse(money, CultureInfo.InvariantCulture);
+            }
+
+            return money;
         }
     }
 }

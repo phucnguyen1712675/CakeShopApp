@@ -46,10 +46,6 @@ namespace CakeShopApp
                     {
                         //simulate a part of work being done
                         Thread.Sleep(30);
-
-                        //because we're not on the UI thread, we need to use the Dispatcher
-                        //associated with the splash screen to update the progress bar
-                        //splashScreen.Dispatcher.Invoke(() => splashScreen.ProgressBar = i);
                     }
 
                     //once we're done we need to use the Dispatcher

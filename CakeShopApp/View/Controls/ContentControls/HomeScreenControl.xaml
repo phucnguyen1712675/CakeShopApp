@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:CakeShopApp.View.Controls.ContentControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     d:DesignHeight="700"
     d:DesignWidth="1300"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -103,7 +104,8 @@
                             <TextBlock
                                 Margin="0,5"
                                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Text="{Binding CAKE_NAME}" />
+                                Text="{Binding CAKE_NAME}"
+                                TextTrimming="CharacterEllipsis" />
                             <TextBlock Margin="0,5" Text="{Binding PRICE, Converter={StaticResource DoubleToVNDConverter}}" />
                         </StackPanel>
                     </Grid>
@@ -114,6 +116,18 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
+
+            <CollectionViewSource x:Key="sortedCateSource" Source="{Binding CakeCategories}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="Key.TYPE_NAME" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+
+            <CollectionViewSource x:Key="sortedCakeSource" Source="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem.Value}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="CAKE_NAME" />
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -131,7 +145,7 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="300" />
+                <RowDefinition Height="240" />
                 <RowDefinition Height="500" />
             </Grid.RowDefinitions>
 
@@ -151,7 +165,7 @@
                     Margin="0,30"
                     ItemContainerStyle="{StaticResource listViewItemContainerStyle}"
                     ItemTemplate="{StaticResource cateItemTemplate}"
-                    ItemsSource="{Binding CakeCategories}"
+                    ItemsSource="{Binding Source={StaticResource sortedCateSource}}"
                     SelectedIndex="{Binding SelectedIndex}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -177,9 +191,7 @@
                     VerticalAlignment="Center"
                     ItemContainerStyle="{StaticResource listViewItemContainerStyle}"
                     ItemTemplate="{StaticResource cakeItemTemplate}"
-                    ItemsSource="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem.Value}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ItemsSource="{Binding Source={StaticResource sortedCakeSource}}"
                     Visibility="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem.Value.Count, Converter={StaticResource IntegerToVisibilityConverter}}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -195,7 +207,9 @@
                 <TextBlock
                     Grid.Row="1"
                     Margin="0,30"
-                    Text="Danh sách rỗng"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="Thêm bánh mới ngay nào!"
                     Visibility="{Binding ElementName=cakeCategoriesListView, Path=SelectedItem.Value.Count, Converter={StaticResource ReversedIntegerToVisibilityConverter}}" />
             </Grid>
         </Grid>
