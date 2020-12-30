@@ -2,7 +2,7 @@
 
 # Điểm đề nghị: 11đ
 - 10đ Hoàn thành đẩy đủ yêu cầu đề
-- 1.5đ Các chức năng bổ sung
+- 1đ Các chức năng bổ sung
 
 ### Thông tin nhóm
 | MSSV     |           Họ và tên    |              Email           |
