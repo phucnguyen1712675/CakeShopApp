@@ -2,7 +2,8 @@
 
 # Điểm đề nghị: 11đ
 - 10đ Hoàn thành đẩy đủ yêu cầu đề
-- 1đ Các chức năng bổ sung.
+- 1.5đ Các chức năng bổ sung
+
 ### Thông tin nhóm
 | MSSV     |           Họ và tên    |              Email           |
 |:--------:|:----------------------:|:----------------------------:|
@@ -28,17 +29,23 @@
     + Thống kê đồ thị hình bánh cho biết tỉ lệ doanh thu theo loại bánh. 
 
 ### Các đặc điểm đặc sắc ( +1 đ)
- - Cho phép chỉnh sửa thông tin loại bánh như Tên loại bánh.
- - Khi tạo đơn hàng, tự động kiểm tra số lượng bánh yêu cầu và số lượng bánh còn lại. Không cho phép đặt quá số lượng bánh còn tại cửa hàng.
- - Cho phép tìm kiếm bánh theo tên trong giao diện Menu cũng như lúc tạo đơn hàng.
- - Thanh tìm kiếm cũng gợi ý các loại bánh có trong cửa hàng, nhấp chọn để xem chi tiết hoặc thêm vào đơn hàng.
- - Đồ thị tỉ lệ doanh thu theo loại bánh được chọn chọn thời điểm bắt đầu và kết thúc thống kê, tính đến đơn vị ngày.
- - Có học sử dụng package hỗ trợ thêm tạo giao diện
+ - Cho phép chỉnh sửa tên loại bánh.
+ - Cho phép tìm kiếm bánh theo tên bánh với mode autocomplete.
+ - Có Dark mode
+ - Có học sử dụng package hỗ trợ thêm tạo giao diện.
 
 ### Con đường bất hạnh 
-- Check dữ liệu người dùng nhập vào
+ - Check dữ liệu người dùng nhập vào
+ - Có kiểm tra số lượng bánh còn lại trước khi thêm vào giỏ hàng
+ 
+### Setup project
+- Để chạy chương trình yêu cầu máy tính có cài đặt MSSQL.
+- Mở file "CakeStore_Script.sql" trong thư mục "Release", Ctrl + f5 để thực thi các câu lệnh để khởi tạo cơ sở dữ liệu.
+- Mở file "CakeShopApp.exe.Config" trong thư mục "Release/Release", thay phần "SERVER" thành Server Name chứa cơ sở dữ liệu vừa tạo.
+- Chạy chương trình thực thi CakeShopApp.exe trong "Release/Release". Lưu ý, Khi Add/edit phần tử (Thêm bánh) có cần hình ảnh, thì các hình ảnh phải được copy/cut dô thư mục Release/Release/Image
 
 ### Link youtube demo
+
 
 ### Ghi chú quyền
 - Thầy có quyền sử dùng video demo , nhưng sourceCode thì nhóm em sẽ không public ra ạ
