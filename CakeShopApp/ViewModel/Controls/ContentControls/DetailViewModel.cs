@@ -6,10 +6,6 @@ using CakeShopApp.ViewModel.Controls.Dialogs;
 using Force.DeepCloner;
 using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CakeShopApp.ViewModel.Controls.ContentControls
@@ -110,6 +106,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 db.CAKE_TYPE.Add(newCate);
                 db.SaveChanges();
             };
+
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
 
         private void AddCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -123,6 +121,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                 db.CAKEs.Add(newCake);
                 db.SaveChanges();
             };
+
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
 
         private void EditCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -144,6 +144,8 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
 
                 this.SelectedCake = cake;
             };
+
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
         
         private async void ExecuteAddCakeToOrderAsync(object obj)

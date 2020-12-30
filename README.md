@@ -45,7 +45,7 @@
 - Chạy chương trình thực thi CakeShopApp.exe trong "Release/Release". Lưu ý, Khi Add/edit phần tử (Thêm bánh) có cần hình ảnh, thì các hình ảnh phải được copy/cut dô thư mục Release/Release/Image
 
 ### Link youtube demo
-
+https://youtu.be/B7ZJSz8Hb94
 
 ### Ghi chú quyền
 - Thầy có quyền sử dùng video demo , nhưng sourceCode thì nhóm em sẽ không public ra ạ

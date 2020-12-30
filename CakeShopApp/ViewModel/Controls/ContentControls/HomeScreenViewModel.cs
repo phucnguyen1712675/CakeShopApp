@@ -184,6 +184,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
 
             GetCakeCategories(tempIndex);
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
 
         private void AddCakeDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -202,6 +203,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
             };
 
             GetCakeCategories(tempIndex);
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
 
         private void EditCateDialogClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
@@ -231,6 +233,7 @@ namespace CakeShopApp.ViewModel.Controls.ContentControls
                     MessageBox.Show("Error");
                 }
             };
+            MainWindowViewModel.Instance.GetAutocompleteSource();
         }
 
         public void updateCakeAmount(int cakeid, int typeid, int number)
