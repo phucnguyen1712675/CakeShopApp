@@ -27,6 +27,26 @@ namespace CakeShopApp.View
             if (newContent is HomeScreenViewModel)
             {
                 autocomplete.ClearSelection();
+
+                if (DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.NavigationItems.ForEach(item =>
+                    {
+                        item.IsSelected = false;
+                    });
+
+                    dataContext.NavigationItems[0].IsSelected = true;
+                }
+            }
+            else if (newContent is DetailViewModel)
+            {
+                if (DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.NavigationItems.ForEach(item =>
+                    {
+                        item.IsSelected = false;
+                    });
+                }
             }
         }
 

@@ -29,9 +29,13 @@ namespace CakeShopApp.ViewModel.Controls.Dialogs
                 if (CakeCategories.Any(f => f.TYPE_ID == this._selectedCake.CAKE_TYPE))
                 {
                     //If it does, get item
-                    var cate = CakeCategories.First(f => f.TYPE_ID == this._selectedCake.CAKE_TYPE);
+                    var cate = CakeCategories.FirstOrDefault(f => f.TYPE_ID == this._selectedCake.CAKE_TYPE);
                     //grab its index
                     SelectedIndex = CakeCategories.IndexOf(cate);
+                }
+                else
+                {
+                    SelectedIndex = 0;
                 }
             }
         }

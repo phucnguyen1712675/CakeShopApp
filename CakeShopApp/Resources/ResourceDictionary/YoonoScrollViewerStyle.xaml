@@ -59,13 +59,11 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
-
                 <!--<Setter Property="VerticalScrollBarVisibility" Value="Visible" />-->
-
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Focusable" Value="false" />
