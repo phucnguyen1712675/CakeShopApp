@@ -1,5 +1,6 @@
 Add Loại bánh:
 - Tên loại: Chesse Cake
+
 Add Bánh mới:
 - Name: Chesse Cake Dâu
 - Category: Chesse Cake
@@ -7,3 +8,11 @@ Add Bánh mới:
 Chiếc bánh pho mát kem được làm từ những năm 1800 và trở thành một trong những món bánh quen thuộc của người dân New York.
 - Price: 50000
 - Remaining amount: 20
+
+Search tên bánh mới
+
+coi thống kê 
+
+thêm order
+
+coi lại thống kê
