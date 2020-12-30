@@ -20,7 +20,7 @@ namespace CakeShopApp.ViewModel
         public bool IsNavigationDrawerOpen { get; set; }
         public List<INavigationItem> NavigationItems { get; set; }
         public INavigationItem SelectedNavigationItem { get; set; }
-        public IAutocompleteSource AutocompleteSource { get; }
+        public IAutocompleteSource AutocompleteSource { get; set; }
         public bool IsChecked { get; set; }
         public ICommand DarkModeCommand => new AnotherCommandImplementation(ExecuteDarkModeModify);
         public object SelectedItem
@@ -61,13 +61,15 @@ namespace CakeShopApp.ViewModel
             };
             SelectedNavigationItem = NavigationItems[0];
 
-            this.AutocompleteSource = new CakeAutocompleteSource();
+            GetAutocompleteSource();
             this.SelectedItem = null;
 
             var value = ConfigurationManager.AppSettings["IsDarkMode"];
             this.IsChecked = bool.Parse(value);
             ModifyTheme(this.IsChecked);
         }
+
+        public void GetAutocompleteSource() => this.AutocompleteSource = new CakeAutocompleteSource();
 
         private void ExecuteDarkModeModify(object obj)
         {
