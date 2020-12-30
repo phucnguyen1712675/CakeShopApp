@@ -44,7 +44,7 @@
           <Property Name="CUSTOMER_ADDRESS" Type="nvarchar" MaxLength="150" />
           <Property Name="TOTAL_PRICE" Type="float" />
         </EntityType>
-        <Association Name="FK__CAKE__CAKE_TYPE__2A4B4B5E">
+        <Association Name="FK__CAKE__CAKE_TYPE__3D5E1FD2">
           <End Role="CAKE_TYPE" Type="Self.CAKE_TYPE" Multiplicity="1" />
           <End Role="CAKE" Type="Self.CAKE" Multiplicity="*" />
           <ReferentialConstraint>
@@ -56,7 +56,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CAKE_IN_O__CAKE___2B3F6F97">
+        <Association Name="FK__CAKE_IN_O__CAKE___3E52440B">
           <End Role="CAKE" Type="Self.CAKE" Multiplicity="1" />
           <End Role="CAKE_IN_ORDERS" Type="Self.CAKE_IN_ORDERS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,11 +85,11 @@
           <EntitySet Name="CAKE_IN_ORDERS" EntityType="Self.CAKE_IN_ORDERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAKE_TYPE" EntityType="Self.CAKE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CAKE__CAKE_TYPE__2A4B4B5E" Association="Self.FK__CAKE__CAKE_TYPE__2A4B4B5E">
+          <AssociationSet Name="FK__CAKE__CAKE_TYPE__3D5E1FD2" Association="Self.FK__CAKE__CAKE_TYPE__3D5E1FD2">
             <End Role="CAKE_TYPE" EntitySet="CAKE_TYPE" />
             <End Role="CAKE" EntitySet="CAKE" />
           </AssociationSet>
-          <AssociationSet Name="FK__CAKE_IN_O__CAKE___2B3F6F97" Association="Self.FK__CAKE_IN_O__CAKE___2B3F6F97">
+          <AssociationSet Name="FK__CAKE_IN_O__CAKE___3E52440B" Association="Self.FK__CAKE_IN_O__CAKE___3E52440B">
             <End Role="CAKE" EntitySet="CAKE" />
             <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
           </AssociationSet>
@@ -131,7 +131,7 @@
             <End Role="ORDER" EntitySet="ORDERS" />
             <End Role="CAKE_IN_ORDERS" EntitySet="CAKE_IN_ORDERS" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <EntityType Name="CAKE">
           <Key>
             <PropertyRef Name="CAKE_ID" />

@@ -88,6 +88,7 @@
                             VerticalAlignment="Center"
                             md:HintAssist.Hint="SĐT KH"
                             md:TextFieldAssist.HasClearButton="True"
+                            MaxLength="10"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             Text="{Binding ORDER.CUSTOMER_PHONE}" />
                     </Grid>
@@ -117,12 +118,12 @@
                             VerticalScrollBarVisibility="Auto" />
                     </Grid>
                 </StackPanel>
-                <!--  TODO tạo đơn hàng  -->
-                <Button
-                    Height="40"
-                    Margin="30"
-                    VerticalAlignment="Bottom"
-                    Content="Tạo đơn" />
+                <!--TODO tạo đơn hàng-->
+                <Button Content="Tạo đơn"
+                        Margin="30"
+                        Height="40"
+                        Command="{Binding RunAddOrder}"
+                        VerticalAlignment="Bottom"/>
             </Grid>
         </md:Card>
 
@@ -148,12 +149,13 @@
 
 
                     <ListView
-                        x:Name="CakesinOrderListView"
-                        Height="400"
-                        Margin="10,20"
-                        ItemsSource="{Binding ORDER.CAKE_IN_ORDERS}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    Height="400"
+                    x:Name="CakesinOrderListView"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    Margin="10,20"
+                    ItemsSource="{Binding ORDER.CAKE_IN_ORDERS}">
+
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -198,18 +200,18 @@
                                                 Text="{Binding CAKE.CAKE_NAME}" />
                                             <TextBlock Text="{Binding CAKE.CAKE_TYPE1.TYPE_NAME}" />
                                         </StackPanel>
-
-                                        <mde:OversizedNumberSpinner
-                                            Name="CakeInOrderNumberSpinner"
-                                            Grid.Column="2"
-                                            Width="45"
-                                            Height="60"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Background="#FF512DA8"
-                                            Max="{Binding CAKE.REMAINING_AMOUNT}"
-                                            Min="0"
-                                            Value="{Binding NUMBER, Mode=TwoWay}" />
+                                        
+                                            <mde:OversizedNumberSpinner 
+                                        Name="CakeInOrderNumberSpinner"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Value="{Binding NUMBER, Mode=TwoWay}"
+                                        Min="1" 
+                                        Width="45"
+                                        Height="60"
+                                        Background="#FF512DA8"
+                                        Max="{Binding CAKE.REMAINING_AMOUNT}"/>
                                         <TextBox
                                             x:Name="valueChangeNumber"
                                             Text="{Binding ElementName=CakeInOrderNumberSpinner, Path=Value}"

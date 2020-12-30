@@ -178,10 +178,12 @@
     <Compile Include="ViewModel\Controls\ContentControls\Slides\BasicColumnViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\Slides\PieChartViewModel.cs" />
     <Compile Include="ViewModel\Controls\ContentControls\StatisticsViewModel.cs" />
-    <Compile Include="ViewModel\Controls\Dialogs\CalendarPickerViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\AddCakeToCakesInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\CategoryDialogViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DeleteCakeOfCakeInOrderViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\DetailDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\SampleMessageDialogViewModel.cs" />
+    <Compile Include="ViewModel\Controls\Dialogs\CalendarPickerViewModel.cs" />
     <Compile Include="ViewModel\Controls\Dialogs\OKCancelDialogViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SplashScreenViewModel.cs" />

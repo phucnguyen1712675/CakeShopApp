@@ -30,6 +30,8 @@
 ### Các đặc điểm đặc sắc ( +1 đ)
  - Cho phép chỉnh sửa thông tin loại bánh như Tên loại bánh.
  - Khi tạo đơn hàng, tự động kiểm tra số lượng bánh yêu cầu và số lượng bánh còn lại. Không cho phép đặt quá số lượng bánh còn tại cửa hàng.
+ - Cho phép tìm kiếm bánh theo tên trong giao diện Menu cũng như lúc tạo đơn hàng.
+ - Thanh tìm kiếm cũng gợi ý các loại bánh có trong cửa hàng, nhấp chọn để xem chi tiết hoặc thêm vào đơn hàng.
  - Đồ thị tỉ lệ doanh thu theo loại bánh được chọn chọn thời điểm bắt đầu và kết thúc thống kê, tính đến đơn vị ngày.
  - Có học sử dụng package hỗ trợ thêm tạo giao diện
 

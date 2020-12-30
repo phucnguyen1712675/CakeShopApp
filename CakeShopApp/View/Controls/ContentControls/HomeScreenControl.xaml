@@ -99,6 +99,20 @@
                                     VerticalAlignment="Center"
                                     Text="{Binding REMAINING_AMOUNT}" />
                             </md:Card>
+                           <Button
+                               Margin="0,0,10,-10"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding DataContext.RunAddCakeToOrder, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding}"
+                               ToolTip="Thêm vào giỏ hàng"
+                               Background="#FF7986CB"
+                               Width="35"
+                               Height="35" >
+                                <md:PackIcon Kind="CartArrowDown" Width="20" Height="20"/>
+                           </Button>
                         </Grid>
                         <StackPanel Grid.Row="1" Margin="25,0,0,0">
                             <TextBlock
